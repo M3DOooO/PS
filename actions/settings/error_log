@@ -1,0 +1,163 @@
+[03-Mar-2025 00:04:38 Africa/Cairo] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/veuxieqbigbm/public_html/blue3.psxegy.com/includes/config.php on line 14
+[03-Mar-2025 00:04:38 Africa/Cairo] PHP Notice:  Undefined variable: mac in /home/veuxieqbigbm/public_html/blue3.psxegy.com/includes/config.php on line 33
+[03-Mar-2025 00:04:38 Africa/Cairo] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/veuxieqbigbm/public_html/blue3.psxegy.com/actions/settings/reset_reports.php on line 10
+[03-Mar-2025 00:04:38 Africa/Cairo] PHP Notice:  Undefined index: id in /home/veuxieqbigbm/public_html/blue3.psxegy.com/actions/settings/reset_reports.php on line 29
+[03-Mar-2025 00:04:38 Africa/Cairo] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/veuxieqbigbm/public_html/blue3.psxegy.com/actions/settings/reset_reports.php on line 30
+[03-Mar-2025 00:04:38 Africa/Cairo] PHP Notice:  Undefined index: id in /home/veuxieqbigbm/public_html/blue3.psxegy.com/actions/settings/reset_reports.php on line 32
+[03-Mar-2025 00:04:41 Africa/Cairo] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/veuxieqbigbm/public_html/blue3.psxegy.com/includes/config.php on line 14
+[03-Mar-2025 00:04:41 Africa/Cairo] PHP Notice:  Undefined variable: mac in /home/veuxieqbigbm/public_html/blue3.psxegy.com/includes/config.php on line 33
+[03-Mar-2025 00:04:41 Africa/Cairo] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/veuxieqbigbm/public_html/blue3.psxegy.com/actions/settings/reset_reports.php on line 10
+[03-Mar-2025 00:04:41 Africa/Cairo] PHP Notice:  Undefined index: id in /home/veuxieqbigbm/public_html/blue3.psxegy.com/actions/settings/reset_reports.php on line 29
+[03-Mar-2025 00:04:41 Africa/Cairo] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/veuxieqbigbm/public_html/blue3.psxegy.com/actions/settings/reset_reports.php on line 30
+[03-Mar-2025 00:04:41 Africa/Cairo] PHP Notice:  Undefined index: id in /home/veuxieqbigbm/public_html/blue3.psxegy.com/actions/settings/reset_reports.php on line 32
+[03-Mar-2025 00:04:47 Africa/Cairo] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/veuxieqbigbm/public_html/blue3.psxegy.com/includes/config.php on line 14
+[03-Mar-2025 00:04:47 Africa/Cairo] PHP Notice:  Undefined variable: mac in /home/veuxieqbigbm/public_html/blue3.psxegy.com/includes/config.php on line 33
+[03-Mar-2025 00:04:47 Africa/Cairo] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/veuxieqbigbm/public_html/blue3.psxegy.com/actions/settings/reset_products.php on line 10
+[03-Mar-2025 00:04:47 Africa/Cairo] PHP Notice:  Undefined index: id in /home/veuxieqbigbm/public_html/blue3.psxegy.com/actions/settings/reset_products.php on line 29
+[03-Mar-2025 00:04:47 Africa/Cairo] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/veuxieqbigbm/public_html/blue3.psxegy.com/actions/settings/reset_products.php on line 30
+[03-Mar-2025 00:04:47 Africa/Cairo] PHP Notice:  Undefined index: id in /home/veuxieqbigbm/public_html/blue3.psxegy.com/actions/settings/reset_products.php on line 32
+[03-Mar-2025 00:06:59 Africa/Cairo] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/veuxieqbigbm/public_html/blue3.psxegy.com/includes/config.php on line 14
+[03-Mar-2025 00:06:59 Africa/Cairo] PHP Notice:  Undefined variable: mac in /home/veuxieqbigbm/public_html/blue3.psxegy.com/includes/config.php on line 33
+[03-Mar-2025 00:06:59 Africa/Cairo] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/veuxieqbigbm/public_html/blue3.psxegy.com/actions/settings/update.php on line 10
+[03-Mar-2025 00:06:59 Africa/Cairo] PHP Notice:  Undefined index: id in /home/veuxieqbigbm/public_html/blue3.psxegy.com/actions/settings/update.php on line 29
+[03-Mar-2025 00:06:59 Africa/Cairo] PHP Notice:  Undefined index: add_funds in /home/veuxieqbigbm/public_html/blue3.psxegy.com/actions/settings/update.php on line 30
+[03-Mar-2025 00:06:59 Africa/Cairo] PHP Notice:  Undefined index: printing in /home/veuxieqbigbm/public_html/blue3.psxegy.com/actions/settings/update.php on line 35
+[03-Mar-2025 00:06:59 Africa/Cairo] PHP Notice:  Undefined index: min_time in /home/veuxieqbigbm/public_html/blue3.psxegy.com/actions/settings/update.php on line 41
+[03-Mar-2025 00:06:59 Africa/Cairo] PHP Notice:  Undefined index: tax in /home/veuxieqbigbm/public_html/blue3.psxegy.com/actions/settings/update.php on line 43
+[03-Mar-2025 00:06:59 Africa/Cairo] PHP Notice:  Undefined index: tax_ch in /home/veuxieqbigbm/public_html/blue3.psxegy.com/actions/settings/update.php on line 44
+[03-Mar-2025 00:06:59 Africa/Cairo] PHP Notice:  Undefined index: service in /home/veuxieqbigbm/public_html/blue3.psxegy.com/actions/settings/update.php on line 45
+[03-Mar-2025 00:06:59 Africa/Cairo] PHP Notice:  Undefined index: service_ch in /home/veuxieqbigbm/public_html/blue3.psxegy.com/actions/settings/update.php on line 46
+[03-Mar-2025 00:06:59 Africa/Cairo] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/veuxieqbigbm/public_html/blue3.psxegy.com/actions/settings/update.php on line 48
+[03-Mar-2025 00:06:59 Africa/Cairo] PHP Notice:  Undefined variable: var5 in /home/veuxieqbigbm/public_html/blue3.psxegy.com/actions/settings/update.php on line 54
+[03-Mar-2025 04:22:23 Africa/Cairo] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/veuxieqbigbm/public_html/blue3.psxegy.com/includes/config.php on line 14
+[03-Mar-2025 04:22:23 Africa/Cairo] PHP Notice:  Undefined variable: mac in /home/veuxieqbigbm/public_html/blue3.psxegy.com/includes/config.php on line 33
+[03-Mar-2025 04:22:23 Africa/Cairo] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/veuxieqbigbm/public_html/blue3.psxegy.com/actions/settings/reset_reports.php on line 10
+[03-Mar-2025 04:22:23 Africa/Cairo] PHP Notice:  Undefined index: id in /home/veuxieqbigbm/public_html/blue3.psxegy.com/actions/settings/reset_reports.php on line 29
+[03-Mar-2025 04:22:23 Africa/Cairo] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/veuxieqbigbm/public_html/blue3.psxegy.com/actions/settings/reset_reports.php on line 30
+[03-Mar-2025 04:22:23 Africa/Cairo] PHP Notice:  Undefined index: id in /home/veuxieqbigbm/public_html/blue3.psxegy.com/actions/settings/reset_reports.php on line 32
+[03-Mar-2025 17:53:52 Africa/Cairo] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/veuxieqbigbm/public_html/blue3.psxegy.com/includes/config.php on line 14
+[03-Mar-2025 17:53:52 Africa/Cairo] PHP Notice:  Undefined variable: mac in /home/veuxieqbigbm/public_html/blue3.psxegy.com/includes/config.php on line 33
+[03-Mar-2025 17:53:52 Africa/Cairo] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/veuxieqbigbm/public_html/blue3.psxegy.com/actions/settings/reset_reports.php on line 10
+[03-Mar-2025 17:53:52 Africa/Cairo] PHP Notice:  Undefined index: id in /home/veuxieqbigbm/public_html/blue3.psxegy.com/actions/settings/reset_reports.php on line 29
+[03-Mar-2025 17:53:52 Africa/Cairo] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/veuxieqbigbm/public_html/blue3.psxegy.com/actions/settings/reset_reports.php on line 30
+[03-Mar-2025 17:53:52 Africa/Cairo] PHP Notice:  Undefined index: id in /home/veuxieqbigbm/public_html/blue3.psxegy.com/actions/settings/reset_reports.php on line 32
+[03-Mar-2025 18:07:00 Africa/Cairo] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/veuxieqbigbm/public_html/blue3.psxegy.com/includes/config.php on line 14
+[03-Mar-2025 18:07:00 Africa/Cairo] PHP Notice:  Undefined variable: mac in /home/veuxieqbigbm/public_html/blue3.psxegy.com/includes/config.php on line 33
+[03-Mar-2025 18:07:00 Africa/Cairo] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/veuxieqbigbm/public_html/blue3.psxegy.com/actions/settings/update.php on line 10
+[03-Mar-2025 18:07:00 Africa/Cairo] PHP Notice:  Undefined index: id in /home/veuxieqbigbm/public_html/blue3.psxegy.com/actions/settings/update.php on line 29
+[03-Mar-2025 18:07:00 Africa/Cairo] PHP Notice:  Undefined index: add_funds in /home/veuxieqbigbm/public_html/blue3.psxegy.com/actions/settings/update.php on line 30
+[03-Mar-2025 18:07:00 Africa/Cairo] PHP Notice:  Undefined index: printing in /home/veuxieqbigbm/public_html/blue3.psxegy.com/actions/settings/update.php on line 35
+[03-Mar-2025 18:07:00 Africa/Cairo] PHP Notice:  Undefined index: min_time in /home/veuxieqbigbm/public_html/blue3.psxegy.com/actions/settings/update.php on line 41
+[03-Mar-2025 18:07:00 Africa/Cairo] PHP Notice:  Undefined index: tax in /home/veuxieqbigbm/public_html/blue3.psxegy.com/actions/settings/update.php on line 43
+[03-Mar-2025 18:07:00 Africa/Cairo] PHP Notice:  Undefined index: tax_ch in /home/veuxieqbigbm/public_html/blue3.psxegy.com/actions/settings/update.php on line 44
+[03-Mar-2025 18:07:00 Africa/Cairo] PHP Notice:  Undefined index: service in /home/veuxieqbigbm/public_html/blue3.psxegy.com/actions/settings/update.php on line 45
+[03-Mar-2025 18:07:00 Africa/Cairo] PHP Notice:  Undefined index: service_ch in /home/veuxieqbigbm/public_html/blue3.psxegy.com/actions/settings/update.php on line 46
+[03-Mar-2025 18:07:00 Africa/Cairo] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/veuxieqbigbm/public_html/blue3.psxegy.com/actions/settings/update.php on line 48
+[03-Mar-2025 18:07:00 Africa/Cairo] PHP Notice:  Undefined variable: var5 in /home/veuxieqbigbm/public_html/blue3.psxegy.com/actions/settings/update.php on line 54
+[03-Mar-2025 18:07:18 Africa/Cairo] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/veuxieqbigbm/public_html/blue3.psxegy.com/includes/config.php on line 14
+[03-Mar-2025 18:07:18 Africa/Cairo] PHP Notice:  Undefined variable: mac in /home/veuxieqbigbm/public_html/blue3.psxegy.com/includes/config.php on line 33
+[03-Mar-2025 18:07:18 Africa/Cairo] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/veuxieqbigbm/public_html/blue3.psxegy.com/actions/settings/update.php on line 10
+[03-Mar-2025 18:07:18 Africa/Cairo] PHP Notice:  Undefined index: id in /home/veuxieqbigbm/public_html/blue3.psxegy.com/actions/settings/update.php on line 29
+[03-Mar-2025 18:07:18 Africa/Cairo] PHP Notice:  Undefined index: add_funds in /home/veuxieqbigbm/public_html/blue3.psxegy.com/actions/settings/update.php on line 30
+[03-Mar-2025 18:07:18 Africa/Cairo] PHP Notice:  Undefined index: printing in /home/veuxieqbigbm/public_html/blue3.psxegy.com/actions/settings/update.php on line 35
+[03-Mar-2025 18:07:18 Africa/Cairo] PHP Notice:  Undefined index: min_time in /home/veuxieqbigbm/public_html/blue3.psxegy.com/actions/settings/update.php on line 41
+[03-Mar-2025 18:07:18 Africa/Cairo] PHP Notice:  Undefined index: tax in /home/veuxieqbigbm/public_html/blue3.psxegy.com/actions/settings/update.php on line 43
+[03-Mar-2025 18:07:18 Africa/Cairo] PHP Notice:  Undefined index: tax_ch in /home/veuxieqbigbm/public_html/blue3.psxegy.com/actions/settings/update.php on line 44
+[03-Mar-2025 18:07:18 Africa/Cairo] PHP Notice:  Undefined index: service in /home/veuxieqbigbm/public_html/blue3.psxegy.com/actions/settings/update.php on line 45
+[03-Mar-2025 18:07:18 Africa/Cairo] PHP Notice:  Undefined index: service_ch in /home/veuxieqbigbm/public_html/blue3.psxegy.com/actions/settings/update.php on line 46
+[03-Mar-2025 18:07:18 Africa/Cairo] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/veuxieqbigbm/public_html/blue3.psxegy.com/actions/settings/update.php on line 48
+[03-Mar-2025 18:07:18 Africa/Cairo] PHP Notice:  Undefined variable: var5 in /home/veuxieqbigbm/public_html/blue3.psxegy.com/actions/settings/update.php on line 54
+[03-Mar-2025 18:07:39 Africa/Cairo] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/veuxieqbigbm/public_html/blue3.psxegy.com/includes/config.php on line 14
+[03-Mar-2025 18:07:39 Africa/Cairo] PHP Notice:  Undefined variable: mac in /home/veuxieqbigbm/public_html/blue3.psxegy.com/includes/config.php on line 33
+[03-Mar-2025 18:07:39 Africa/Cairo] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/veuxieqbigbm/public_html/blue3.psxegy.com/actions/settings/update.php on line 10
+[03-Mar-2025 18:07:39 Africa/Cairo] PHP Notice:  Undefined index: id in /home/veuxieqbigbm/public_html/blue3.psxegy.com/actions/settings/update.php on line 29
+[03-Mar-2025 18:07:39 Africa/Cairo] PHP Notice:  Undefined index: add_funds in /home/veuxieqbigbm/public_html/blue3.psxegy.com/actions/settings/update.php on line 30
+[03-Mar-2025 18:07:39 Africa/Cairo] PHP Notice:  Undefined index: printing in /home/veuxieqbigbm/public_html/blue3.psxegy.com/actions/settings/update.php on line 35
+[03-Mar-2025 18:07:39 Africa/Cairo] PHP Notice:  Undefined index: min_time in /home/veuxieqbigbm/public_html/blue3.psxegy.com/actions/settings/update.php on line 41
+[03-Mar-2025 18:07:39 Africa/Cairo] PHP Notice:  Undefined index: tax in /home/veuxieqbigbm/public_html/blue3.psxegy.com/actions/settings/update.php on line 43
+[03-Mar-2025 18:07:39 Africa/Cairo] PHP Notice:  Undefined index: tax_ch in /home/veuxieqbigbm/public_html/blue3.psxegy.com/actions/settings/update.php on line 44
+[03-Mar-2025 18:07:39 Africa/Cairo] PHP Notice:  Undefined index: service in /home/veuxieqbigbm/public_html/blue3.psxegy.com/actions/settings/update.php on line 45
+[03-Mar-2025 18:07:39 Africa/Cairo] PHP Notice:  Undefined index: service_ch in /home/veuxieqbigbm/public_html/blue3.psxegy.com/actions/settings/update.php on line 46
+[03-Mar-2025 18:07:39 Africa/Cairo] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/veuxieqbigbm/public_html/blue3.psxegy.com/actions/settings/update.php on line 48
+[03-Mar-2025 18:07:39 Africa/Cairo] PHP Notice:  Undefined variable: var5 in /home/veuxieqbigbm/public_html/blue3.psxegy.com/actions/settings/update.php on line 54
+[03-Mar-2025 18:08:29 Africa/Cairo] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/veuxieqbigbm/public_html/blue3.psxegy.com/includes/config.php on line 14
+[03-Mar-2025 18:08:29 Africa/Cairo] PHP Notice:  Undefined variable: mac in /home/veuxieqbigbm/public_html/blue3.psxegy.com/includes/config.php on line 33
+[03-Mar-2025 18:08:29 Africa/Cairo] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/veuxieqbigbm/public_html/blue3.psxegy.com/actions/settings/update.php on line 10
+[03-Mar-2025 18:08:29 Africa/Cairo] PHP Notice:  Undefined index: id in /home/veuxieqbigbm/public_html/blue3.psxegy.com/actions/settings/update.php on line 29
+[03-Mar-2025 18:08:29 Africa/Cairo] PHP Notice:  Undefined index: add_funds in /home/veuxieqbigbm/public_html/blue3.psxegy.com/actions/settings/update.php on line 30
+[03-Mar-2025 18:08:29 Africa/Cairo] PHP Notice:  Undefined index: printing in /home/veuxieqbigbm/public_html/blue3.psxegy.com/actions/settings/update.php on line 35
+[03-Mar-2025 18:08:29 Africa/Cairo] PHP Notice:  Undefined index: min_time in /home/veuxieqbigbm/public_html/blue3.psxegy.com/actions/settings/update.php on line 41
+[03-Mar-2025 18:08:29 Africa/Cairo] PHP Notice:  Undefined index: tax in /home/veuxieqbigbm/public_html/blue3.psxegy.com/actions/settings/update.php on line 43
+[03-Mar-2025 18:08:29 Africa/Cairo] PHP Notice:  Undefined index: tax_ch in /home/veuxieqbigbm/public_html/blue3.psxegy.com/actions/settings/update.php on line 44
+[03-Mar-2025 18:08:29 Africa/Cairo] PHP Notice:  Undefined index: service in /home/veuxieqbigbm/public_html/blue3.psxegy.com/actions/settings/update.php on line 45
+[03-Mar-2025 18:08:29 Africa/Cairo] PHP Notice:  Undefined index: service_ch in /home/veuxieqbigbm/public_html/blue3.psxegy.com/actions/settings/update.php on line 46
+[03-Mar-2025 18:08:29 Africa/Cairo] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/veuxieqbigbm/public_html/blue3.psxegy.com/actions/settings/update.php on line 48
+[03-Mar-2025 18:08:29 Africa/Cairo] PHP Notice:  Undefined variable: var5 in /home/veuxieqbigbm/public_html/blue3.psxegy.com/actions/settings/update.php on line 54
+[03-Mar-2025 19:05:12 Africa/Cairo] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/veuxieqbigbm/public_html/blue3.psxegy.com/includes/config.php on line 14
+[03-Mar-2025 19:05:12 Africa/Cairo] PHP Notice:  Undefined variable: mac in /home/veuxieqbigbm/public_html/blue3.psxegy.com/includes/config.php on line 33
+[03-Mar-2025 19:05:12 Africa/Cairo] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/veuxieqbigbm/public_html/blue3.psxegy.com/actions/settings/reset_reports.php on line 10
+[03-Mar-2025 19:05:12 Africa/Cairo] PHP Notice:  Undefined index: id in /home/veuxieqbigbm/public_html/blue3.psxegy.com/actions/settings/reset_reports.php on line 29
+[03-Mar-2025 19:05:12 Africa/Cairo] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/veuxieqbigbm/public_html/blue3.psxegy.com/actions/settings/reset_reports.php on line 30
+[03-Mar-2025 19:05:12 Africa/Cairo] PHP Notice:  Undefined index: id in /home/veuxieqbigbm/public_html/blue3.psxegy.com/actions/settings/reset_reports.php on line 32
+[18-Mar-2025 22:06:07 Africa/Cairo] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/veuxieqbigbm/public_html/blue3.psxegy.com/includes/config.php on line 14
+[18-Mar-2025 22:06:07 Africa/Cairo] PHP Notice:  Undefined variable: mac in /home/veuxieqbigbm/public_html/blue3.psxegy.com/includes/config.php on line 33
+[18-Mar-2025 22:06:07 Africa/Cairo] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/veuxieqbigbm/public_html/blue3.psxegy.com/actions/settings/update.php on line 10
+[18-Mar-2025 22:06:07 Africa/Cairo] PHP Notice:  Undefined index: id in /home/veuxieqbigbm/public_html/blue3.psxegy.com/actions/settings/update.php on line 29
+[18-Mar-2025 22:06:07 Africa/Cairo] PHP Notice:  Undefined index: add_funds in /home/veuxieqbigbm/public_html/blue3.psxegy.com/actions/settings/update.php on line 30
+[18-Mar-2025 22:06:07 Africa/Cairo] PHP Notice:  Undefined index: printing in /home/veuxieqbigbm/public_html/blue3.psxegy.com/actions/settings/update.php on line 35
+[18-Mar-2025 22:06:07 Africa/Cairo] PHP Notice:  Undefined index: min_time in /home/veuxieqbigbm/public_html/blue3.psxegy.com/actions/settings/update.php on line 41
+[18-Mar-2025 22:06:07 Africa/Cairo] PHP Notice:  Undefined index: tax in /home/veuxieqbigbm/public_html/blue3.psxegy.com/actions/settings/update.php on line 43
+[18-Mar-2025 22:06:07 Africa/Cairo] PHP Notice:  Undefined index: tax_ch in /home/veuxieqbigbm/public_html/blue3.psxegy.com/actions/settings/update.php on line 44
+[18-Mar-2025 22:06:07 Africa/Cairo] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/veuxieqbigbm/public_html/blue3.psxegy.com/actions/settings/update.php on line 48
+[18-Mar-2025 22:06:07 Africa/Cairo] PHP Notice:  Undefined variable: var5 in /home/veuxieqbigbm/public_html/blue3.psxegy.com/actions/settings/update.php on line 54
+[18-Mar-2025 22:09:06 Africa/Cairo] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/veuxieqbigbm/public_html/blue3.psxegy.com/includes/config.php on line 14
+[18-Mar-2025 22:09:06 Africa/Cairo] PHP Notice:  Undefined variable: mac in /home/veuxieqbigbm/public_html/blue3.psxegy.com/includes/config.php on line 33
+[18-Mar-2025 22:09:06 Africa/Cairo] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/veuxieqbigbm/public_html/blue3.psxegy.com/actions/settings/update.php on line 10
+[18-Mar-2025 22:09:06 Africa/Cairo] PHP Notice:  Undefined index: id in /home/veuxieqbigbm/public_html/blue3.psxegy.com/actions/settings/update.php on line 29
+[18-Mar-2025 22:09:06 Africa/Cairo] PHP Notice:  Undefined index: add_funds in /home/veuxieqbigbm/public_html/blue3.psxegy.com/actions/settings/update.php on line 30
+[18-Mar-2025 22:09:06 Africa/Cairo] PHP Notice:  Undefined index: printing in /home/veuxieqbigbm/public_html/blue3.psxegy.com/actions/settings/update.php on line 35
+[18-Mar-2025 22:09:06 Africa/Cairo] PHP Notice:  Undefined index: min_time in /home/veuxieqbigbm/public_html/blue3.psxegy.com/actions/settings/update.php on line 41
+[18-Mar-2025 22:09:06 Africa/Cairo] PHP Notice:  Undefined index: tax in /home/veuxieqbigbm/public_html/blue3.psxegy.com/actions/settings/update.php on line 43
+[18-Mar-2025 22:09:06 Africa/Cairo] PHP Notice:  Undefined index: tax_ch in /home/veuxieqbigbm/public_html/blue3.psxegy.com/actions/settings/update.php on line 44
+[18-Mar-2025 22:09:06 Africa/Cairo] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/veuxieqbigbm/public_html/blue3.psxegy.com/actions/settings/update.php on line 48
+[18-Mar-2025 22:09:06 Africa/Cairo] PHP Notice:  Undefined variable: var5 in /home/veuxieqbigbm/public_html/blue3.psxegy.com/actions/settings/update.php on line 54
+[24-May-2025 20:49:41 Africa/Cairo] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/veuxieqbigbm/public_html/blue3.psxegy.com/includes/config.php on line 14
+[24-May-2025 20:49:41 Africa/Cairo] PHP Notice:  Undefined variable: mac in /home/veuxieqbigbm/public_html/blue3.psxegy.com/includes/config.php on line 33
+[24-May-2025 20:49:41 Africa/Cairo] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/veuxieqbigbm/public_html/blue3.psxegy.com/actions/settings/update.php on line 10
+[24-May-2025 20:49:41 Africa/Cairo] PHP Notice:  Undefined index: id in /home/veuxieqbigbm/public_html/blue3.psxegy.com/actions/settings/update.php on line 29
+[24-May-2025 20:49:41 Africa/Cairo] PHP Notice:  Undefined index: add_funds in /home/veuxieqbigbm/public_html/blue3.psxegy.com/actions/settings/update.php on line 30
+[24-May-2025 20:49:41 Africa/Cairo] PHP Notice:  Undefined index: min_time in /home/veuxieqbigbm/public_html/blue3.psxegy.com/actions/settings/update.php on line 41
+[24-May-2025 20:49:41 Africa/Cairo] PHP Notice:  Undefined index: tax in /home/veuxieqbigbm/public_html/blue3.psxegy.com/actions/settings/update.php on line 43
+[24-May-2025 20:49:41 Africa/Cairo] PHP Notice:  Undefined index: tax_ch in /home/veuxieqbigbm/public_html/blue3.psxegy.com/actions/settings/update.php on line 44
+[24-May-2025 20:49:41 Africa/Cairo] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/veuxieqbigbm/public_html/blue3.psxegy.com/actions/settings/update.php on line 48
+[24-May-2025 20:49:41 Africa/Cairo] PHP Notice:  Undefined variable: var5 in /home/veuxieqbigbm/public_html/blue3.psxegy.com/actions/settings/update.php on line 54
+[24-May-2025 23:28:56 Africa/Cairo] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/veuxieqbigbm/public_html/blue3.psxegy.com/includes/config.php on line 14
+[24-May-2025 23:28:56 Africa/Cairo] PHP Notice:  Undefined variable: mac in /home/veuxieqbigbm/public_html/blue3.psxegy.com/includes/config.php on line 33
+[24-May-2025 23:28:56 Africa/Cairo] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/veuxieqbigbm/public_html/blue3.psxegy.com/actions/settings/update.php on line 10
+[24-May-2025 23:28:56 Africa/Cairo] PHP Notice:  Undefined index: id in /home/veuxieqbigbm/public_html/blue3.psxegy.com/actions/settings/update.php on line 29
+[24-May-2025 23:28:56 Africa/Cairo] PHP Notice:  Undefined index: add_funds in /home/veuxieqbigbm/public_html/blue3.psxegy.com/actions/settings/update.php on line 30
+[24-May-2025 23:28:56 Africa/Cairo] PHP Notice:  Undefined index: printing in /home/veuxieqbigbm/public_html/blue3.psxegy.com/actions/settings/update.php on line 35
+[24-May-2025 23:28:56 Africa/Cairo] PHP Notice:  Undefined index: min_time in /home/veuxieqbigbm/public_html/blue3.psxegy.com/actions/settings/update.php on line 41
+[24-May-2025 23:28:56 Africa/Cairo] PHP Notice:  Undefined index: tax in /home/veuxieqbigbm/public_html/blue3.psxegy.com/actions/settings/update.php on line 43
+[24-May-2025 23:28:56 Africa/Cairo] PHP Notice:  Undefined index: tax_ch in /home/veuxieqbigbm/public_html/blue3.psxegy.com/actions/settings/update.php on line 44
+[24-May-2025 23:28:56 Africa/Cairo] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/veuxieqbigbm/public_html/blue3.psxegy.com/actions/settings/update.php on line 48
+[24-May-2025 23:28:56 Africa/Cairo] PHP Notice:  Undefined variable: var5 in /home/veuxieqbigbm/public_html/blue3.psxegy.com/actions/settings/update.php on line 54
+[01-Jan-2026 10:05:15 Africa/Cairo] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/psxeqwgl/public_html/blue3.psxegy.com/includes/config.php on line 14
+[01-Jan-2026 10:05:15 Africa/Cairo] PHP Notice:  Undefined variable: mac in /home/psxeqwgl/public_html/blue3.psxegy.com/includes/config.php on line 33
+[01-Jan-2026 10:05:15 Africa/Cairo] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/psxeqwgl/public_html/blue3.psxegy.com/actions/settings/reset_reports.php on line 10
+[01-Jan-2026 10:05:15 Africa/Cairo] PHP Notice:  Undefined index: id in /home/psxeqwgl/public_html/blue3.psxegy.com/actions/settings/reset_reports.php on line 29
+[01-Jan-2026 10:05:15 Africa/Cairo] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/psxeqwgl/public_html/blue3.psxegy.com/actions/settings/reset_reports.php on line 30
+[01-Jan-2026 10:05:15 Africa/Cairo] PHP Notice:  Undefined index: id in /home/psxeqwgl/public_html/blue3.psxegy.com/actions/settings/reset_reports.php on line 32
+[09-Jan-2026 07:42:11 Africa/Cairo] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/psxeqwgl/public_html/blue3.psxegy.com/includes/config.php on line 14
+[09-Jan-2026 07:42:11 Africa/Cairo] PHP Notice:  Undefined variable: mac in /home/psxeqwgl/public_html/blue3.psxegy.com/includes/config.php on line 33
+[09-Jan-2026 07:42:11 Africa/Cairo] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/psxeqwgl/public_html/blue3.psxegy.com/actions/settings/update.php on line 10
+[09-Jan-2026 07:42:11 Africa/Cairo] PHP Notice:  Undefined index: id in /home/psxeqwgl/public_html/blue3.psxegy.com/actions/settings/update.php on line 29
+[09-Jan-2026 07:42:11 Africa/Cairo] PHP Notice:  Undefined index: add_funds in /home/psxeqwgl/public_html/blue3.psxegy.com/actions/settings/update.php on line 30
+[09-Jan-2026 07:42:11 Africa/Cairo] PHP Notice:  Undefined index: printing in /home/psxeqwgl/public_html/blue3.psxegy.com/actions/settings/update.php on line 35
+[09-Jan-2026 07:42:11 Africa/Cairo] PHP Notice:  Undefined index: min_time in /home/psxeqwgl/public_html/blue3.psxegy.com/actions/settings/update.php on line 41
+[09-Jan-2026 07:42:11 Africa/Cairo] PHP Notice:  Undefined index: tax in /home/psxeqwgl/public_html/blue3.psxegy.com/actions/settings/update.php on line 43
+[09-Jan-2026 07:42:11 Africa/Cairo] PHP Notice:  Undefined index: tax_ch in /home/psxeqwgl/public_html/blue3.psxegy.com/actions/settings/update.php on line 44
+[09-Jan-2026 07:42:11 Africa/Cairo] PHP Notice:  Undefined index: service in /home/psxeqwgl/public_html/blue3.psxegy.com/actions/settings/update.php on line 45
+[09-Jan-2026 07:42:11 Africa/Cairo] PHP Notice:  Undefined index: service_ch in /home/psxeqwgl/public_html/blue3.psxegy.com/actions/settings/update.php on line 46
+[09-Jan-2026 07:42:11 Africa/Cairo] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/psxeqwgl/public_html/blue3.psxegy.com/actions/settings/update.php on line 48
+[09-Jan-2026 07:42:11 Africa/Cairo] PHP Notice:  Undefined variable: var5 in /home/psxeqwgl/public_html/blue3.psxegy.com/actions/settings/update.php on line 54

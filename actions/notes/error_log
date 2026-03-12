@@ -1,0 +1,6 @@
+[14-Jul-2025 04:57:48 Africa/Cairo] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/veuxieqbigbm/public_html/blue3.psxegy.com/includes/config.php on line 14
+[14-Jul-2025 04:57:48 Africa/Cairo] PHP Notice:  Undefined variable: mac in /home/veuxieqbigbm/public_html/blue3.psxegy.com/includes/config.php on line 33
+[14-Jul-2025 04:57:48 Africa/Cairo] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/veuxieqbigbm/public_html/blue3.psxegy.com/actions/notes/add.php on line 10
+[28-Jan-2026 00:04:28 Africa/Cairo] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/psxeqwgl/public_html/blue3.psxegy.com/includes/config.php on line 14
+[28-Jan-2026 00:04:28 Africa/Cairo] PHP Notice:  Undefined variable: mac in /home/psxeqwgl/public_html/blue3.psxegy.com/includes/config.php on line 33
+[28-Jan-2026 00:04:28 Africa/Cairo] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/psxeqwgl/public_html/blue3.psxegy.com/actions/notes/add.php on line 10

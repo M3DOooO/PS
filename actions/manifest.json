@@ -1,0 +1,21 @@
+{
+"manifest_version": 2,
+"name": "Gesture For Playstation",
+"description": "Mohamed Gad",
+"version": "4.0",
+"icons": {
+"128": "img/ps_logo2.jpg"
+},
+"app": {
+"urls": [
+"http://localhost/ps"
+],
+"launch": {
+"web_url": "http://localhost/ps"
+}
+},
+"permissions": [
+"unlimitedStorage",
+"notifications"
+]
+}
