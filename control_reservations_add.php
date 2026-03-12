@@ -1,0 +1,148 @@
+﻿<?php session_start();
+ if( !isset($_SESSION['ps_user']) )
+ {
+	include('login.php');
+	    die();
+}
+ 
+include('includes/config.php');
+if($lang == 'en'){include('languages/en.php');}else if($lang == 'ar'){include('languages/ar.php');}
+              $id=$_GET['id'];			
+              $type=$_GET['type'];			
+              $_SESSION['id']="$id";
+			  $cat = $_GET['cat']; 
+
+		
+			  ?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script type="text/javascript">
+ // Popup window code
+// var url = document.getElementById("www.google.com");
+   //url = document.getelementbyid('http://www.google.com');
+function pay(url) {
+	popupWindow = window.open(
+		url,'popUpWindow','height=700,width=300,left=10,top=10,resizable=no,scrollbars=no,toolbar=no,menubar=no,location=no,directories=no,status=no')
+}
+</script>
+	<meta charset="utf-8">
+	<title><?php echo $lang_76;?></title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="<?php echo $lang_1;?>">
+	<meta name="author" content="Mohamed Gad">
+
+	<!-- The styles -->
+			<?php  include 'includes/css.php';?>
+
+	 
+
+ <script src="js/jquery-1.7.2.min.js"></script> 
+<!-- jQuery UI -->
+<script src="js/jquery-ui-1.8.21.custom.min.js"></script>
+ 
+  <script>
+  $( function() {
+    $( "#datepicker" ).datepicker();
+  } );
+  </script>
+</head>
+
+<?php 
+$success = $_GET['success'];
+if(isset($success))
+{
+?><body onload="pay('actions/print/reserv.php')">
+<?php }
+else
+{
+?><body><?php 
+}
+?>
+		<!-- topbar starts -->
+<?php include('includes/navbar.php');?>
+<!-- topbar ends -->
+		<div class="container-fluid">
+		<div class="row-fluid">
+				
+<!-- left menu starts -->
+<?php include('includes/menu.php');?>
+<!-- left menu ends -->
+			
+			<noscript>
+				<div class="alert alert-block span10">
+					<h4 class="alert-heading">Warning!</h4>
+					<p>You need to have <a href="http://en.wikipedia.org/wiki/JavaScript" target="_blank">JavaScript</a> enabled to use this site.</p>
+				</div>
+			</noscript>
+			
+			<div id="content" class="span10">
+			<div style="border-style:solid;border-width:1px;padding:15px;margin-right: 50px;">
+			<a href="control.php"><span>لوحة التحكم</span></a> / <a href="control_reservations.php"><span>الحجوزات</span></a> / <span>إضافة حجز جديد</span>
+			</div>
+			<br/>
+			<?php 
+			
+			if($success == 'added'){
+			?>
+			<div class="alert alert-info">
+							<button type="button" class="close" data-dismiss="alert">x</button>
+							<strong><?php echo $lang_25;?></strong> <?php echo $lang_76;?>
+						</div> 
+						
+			<?php }?>
+			<!-- content starts -->
+			 
+  			 <center>
+<form action="actions/reservations/add.php" method="POST" >
+ 		 <label class="control-label" for="focusedInput"><?php echo $lang_76;?></label>
+								<div class="controls">
+							
+								 
+								
+  <?php echo $lang_21;?>:<br><input type="text" name="re_name" required><br>
+  <?php echo $lang_77;?>:<br><input type="text" name="re_date" id="datepicker" value="<?php echo date('d/m/Y');?>"><br>
+  <?php echo $lang_10;?> : <?php echo $lang_11;?><br><input type="number" name="re_time" value="1" min="1" max="24" > 
+   <input type="number" name="re_time2" value="0" min="0" max="59" ><br>
+   <?php echo $lang_79;?>:<br><input type="text" name="re_mobile" ><br>
+  <?php echo $lang_80;?>:<br><input type="text" name="re_type" ><br>
+  <?php echo $lang_81;?>:<br><input type="number"  step="0.1" min="0" name="re_money" value="0"><br>
+             
+  
+								</div>
+								
+								<button type="submit" class="btn btn-primary"><?php echo $lang_76;?></button>
+</center>
+</form>       
+<center>
+ 			<!-- content ends -->
+			</div><!--/#content.span10-->
+				</div><!--/fluid-row-->
+				
+		<hr>
+
+		<div class="modal hide fade" id="myModal">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"></button>
+				<h3>Settings</h3>
+			</div>
+			<div class="modal-body">
+				<p>Here settings can be configured...</p>
+			</div>
+			<div class="modal-footer">
+				<a href="#" class="btn" data-dismiss="modal">Close</a>
+				<a href="#" class="btn btn-primary">Save changes</a>
+			</div>
+		</div>
+
+		<footer>
+			<p class="pull-left">&copy; <a href="http://www.psxegy.com" target="_blank">Gesture For Playstation</a> <?php $Year = idate('Y');   echo $Year;?></p>
+			
+		</footer>
+		
+	</div><!--/.fluid-container-->
+<?php  include 'includes/js.php';?>
+
+		
+</body>
+</html>
