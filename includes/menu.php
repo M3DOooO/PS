@@ -53,6 +53,8 @@ if($usern == 1 )
 	<li><a class="ajax-link" href="devices_takeaway.php"><i class="icon-align-justify"></i><span class="">  <?php echo $lang_287;?></span></a></li>
 	<li class="nav-header ">الإضافات</li>
  	<li><a class="ajax-link" href="devices_halls.php"><i class="icon-align-justify"></i><span class="">  القاعات</span></a></li>
+		<li class="nav-header ">تقرير الكاشير</li>
+		<li><a class="ajax-link" href="reports_current_casheer.php?cashier=<?php echo $now;?>"><i class="icon-user"></i><span class="">  <?php echo $now;?></span></a></li>
 	</ul>
 	</div><!--/.well --><?php  } 
 else 
@@ -66,6 +68,8 @@ else
 	<li><a class="ajax-link" href="devices_takeaway.php"><i class="icon-align-justify"></i><span class="">  <?php echo $lang_287;?></span></a></li>
 	<li class="nav-header ">الإضافات</li>
  	<li><a class="ajax-link" href="devices_halls.php"><i class="icon-align-justify"></i><span class="">  القاعات</span></a></li>
+		<li class="nav-header ">تقرير الكاشير</li>
+		<li><a class="ajax-link" href="reports_current_casheer.php?cashier=<?php echo $now;?>"><i class="icon-user"></i><span class="">  <?php echo $now;?></span></a></li>
 	
 	</ul>
 	</div><!--/.well -->
@@ -88,12 +92,13 @@ function newPopup2(url) {
 	popupWindow.focus();
 }
 </script>
-		<script src="js/jquery-1.7.2.min.js"></script> 
+	<script src="js/jquery-1.7.2.min.js"></script> 
 
 <?php 
 
+
  
-	  
+		  
 if($current_shift =='No')
 {
 	?>
@@ -132,11 +137,11 @@ $('#shiftauth').modal({backdrop: 'static', keyboard: false})
 	<input type="hidden" name="shift_day" value="<?php echo $Day?>"/>
 	<input type="hidden" name="shift_month" value="<?php echo $Month?>"/>
 	<br />
-	<input type="image" src="img/app/buttons/shift-end.png" onclick="return confirm('<?php echo $lang_244;?>')" />
-	</form>
-		 <br/><br/>
+		<input type="image" src="img/app/buttons/shift-end.png" onclick="return confirm('<?php echo $lang_244;?>')" />
+		</form>
+			 <br/><br/>
 
-<?php echo $lang_289;?>:  
+	<?php echo $lang_289;?>:  
  
 
 <script type="text/javascript">
@@ -218,10 +223,10 @@ $('#shiftauth').modal({backdrop: 'static', keyboard: false})
 	<input type="hidden" name="shift_day" value="<?php echo $Day?>"/>
 	<input type="hidden" name="shift_month" value="<?php echo $Month?>"/>
 	<br/>
-	<input type="image" src="img/app/buttons/shift-end.png" onclick="return confirm('<?php echo $lang_244;?>')" />
-	</form>
-	 <br/><br/>
-	<?php echo $lang_289;?>:  
+		<input type="image" src="img/app/buttons/shift-end.png" onclick="return confirm('<?php echo $lang_244;?>')" />
+		</form>
+		 <br/><br/>
+		<?php echo $lang_289;?>:  
  
  
 <script type="text/javascript">
