@@ -3,7 +3,7 @@
 // English Language //
 //////////////////////
 
-$lang_1 = 'Gesture for Playstation Cafes';
+$lang_1 = 'PlayStation Cafes';
 $lang_2 = 'Busy';
 $lang_3 = 'Single';
 $lang_4 = 'Multi';

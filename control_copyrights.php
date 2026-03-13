@@ -15,7 +15,7 @@ if($lang == 'en'){include('languages/en.php');}else if($lang == 'ar'){include('l
 <html lang="en">
 <head>
 	<meta charset="utf-8">
-	<title>Gesture for Playstation</title>
+	<title>PlayStation</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta name="description" content="<?php echo $lang_1;?>">
 	<meta name="author" content="Mohamed Gad">
@@ -98,9 +98,9 @@ function newPopup2(url) {
 				<center>
 				<hr/>
 					<h2 class="login-introfont">
-					<?php echo $lang_169;?><br/>
-					<img src="img/app/defaults/logo20.png"/> 
-					  <br/><?php echo $lang_168;?></h2>
+					<img src="img/app/defaults/ps_logo.png" alt="PlayStation Logo" style="max-width: 90px; margin-bottom: 8px;"/>
+					<br/>
+					<font size="6" face="Arial Unicode MS" color="#33b5e5">PlayStation</font></h2>
 					  <hr/>
 				</center>
 				<p>جميع الحقوق محفوظة لشركة Hype Solutions ولا يحق إعادة بيع أو نسخ البرنامج الا عن طريق الشركة نفسها, و من يخالف ذلك يعرض نفسه للمسائلة القانونية</p>
@@ -137,7 +137,7 @@ function newPopup2(url) {
 		</div>
 
 		<footer>
-			<p class="pull-left">&copy; <a href="http://www.psxegy.com" target="_blank">Gesture For Playstation</a> <?php $Year = idate('Y');   echo $Year;?></p>
+			<p class="pull-left">&copy; <a href="http://www.psxegy.com" target="_blank">PlayStation</a> <?php $Year = idate('Y');   echo $Year;?></p>
 			
 		</footer>
 		
