@@ -150,7 +150,7 @@ $result = mysql_query("SELECT *,SUM(stock),SUM(sold) FROM `ingredients` GROUP BY
 </div>
 
 <footer>
-<p class="pull-left">&copy; <a href="http://www.psxegy.com" target="_blank">PlayStation</a> <?php $Year = idate('Y');   echo $Year;?></p>
+<p class="pull-left">&copy; <a href="http://www.psxegy.com" target="_blank">Gesture For Playstation</a> <?php $Year = idate('Y');   echo $Year;?></p>
 
 </footer>
 

@@ -6,7 +6,7 @@
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 				</a>
-<a  href="devices.php"> <img class="brand-logo" alt="PlayStation Logo" src="img/app/defaults/ps_logo.png" /></a>
+<a  href="devices.php"> <img class="brand-logo" alt="Gesture for Playstation" src="img/app/defaults/logo20.png" /></a>
 				<!-- theme selector starts -->
 				<!-- theme selector ends -->
 				<!-- user dropdown starts -->
