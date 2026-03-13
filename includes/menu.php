@@ -53,6 +53,8 @@ if($usern == 1 )
 	<li><a class="ajax-link" href="devices_takeaway.php"><i class="icon-align-justify"></i><span class="">  <?php echo $lang_287;?></span></a></li>
 	<li class="nav-header ">الإضافات</li>
  	<li><a class="ajax-link" href="devices_halls.php"><i class="icon-align-justify"></i><span class="">  القاعات</span></a></li>
+		<li class="nav-header ">تقرير الكاشير</li>
+		<li><a class="ajax-link" href="reports_current_casheer.php?cashier=<?php echo $now;?>"><i class="icon-user"></i><span class="">  <?php echo $now;?></span></a></li>
 	</ul>
 	</div><!--/.well --><?php  } 
 else 
@@ -66,6 +68,8 @@ else
 	<li><a class="ajax-link" href="devices_takeaway.php"><i class="icon-align-justify"></i><span class="">  <?php echo $lang_287;?></span></a></li>
 	<li class="nav-header ">الإضافات</li>
  	<li><a class="ajax-link" href="devices_halls.php"><i class="icon-align-justify"></i><span class="">  القاعات</span></a></li>
+		<li class="nav-header ">تقرير الكاشير</li>
+		<li><a class="ajax-link" href="reports_current_casheer.php?cashier=<?php echo $now;?>"><i class="icon-user"></i><span class="">  <?php echo $now;?></span></a></li>
 	
 	</ul>
 	</div><!--/.well -->
@@ -92,61 +96,6 @@ function newPopup2(url) {
 
 <?php 
 
-$shift_total = 0;
-if($current_shift =='One' || $current_shift =='Two')
-{
-	$shift_money_1 = 0;
-	$shift_money_2 = 0;
-	$shift_money_3 = 0;
-	$shift_money_4 = 0;
-	$shift_money_5 = 0;
-	$shift_money_6 = 0;
-	$shift_disdiscount = 0;
-
-	$result_shift = mysql_query("SELECT SUM(money) AS total_money FROM reports WHERE day = '$shift_day' AND month = '$shift_month' AND year = '$Year' AND status = 'done' AND shift = '$current_shift'");
-	while($row_shift = mysql_fetch_array($result_shift))
-	{
-		$shift_money_1 = $row_shift['total_money'];
-	}
-
-	$result_shift = mysql_query("SELECT SUM(price) AS total_price FROM reports2 WHERE day = '$shift_day' AND month = '$shift_month' AND year = '$Year' AND catagory != 'exp' AND status = 'done' AND shift = '$current_shift'");
-	while($row_shift = mysql_fetch_array($result_shift))
-	{
-		$shift_money_2 = $row_shift['total_price'];
-	}
-
-	$result_shift = mysql_query("SELECT SUM(price) AS total_orders FROM ps_orders WHERE day = '$shift_day' AND month = '$shift_month' AND year = '$Year' AND shift != '' AND shift = '$current_shift'");
-	while($row_shift = mysql_fetch_array($result_shift))
-	{
-		$shift_money_3 = $row_shift['total_orders'];
-	}
-
-	$result_shift = mysql_query("SELECT SUM(price) AS total_expenses FROM reports2 WHERE day = '$shift_day' AND month = '$shift_month' AND year = '$Year' AND catagory = 'exp' AND shift = '$current_shift'");
-	while($row_shift = mysql_fetch_array($result_shift))
-	{
-		$shift_money_4 = $row_shift['total_expenses'];
-	}
-
-	$result_shift = mysql_query("SELECT SUM(discount2) AS total_discount FROM reports WHERE day = '$shift_day' AND month = '$shift_month' AND year = '$Year' AND status = 'done' AND shift = '$current_shift'");
-	while($row_shift = mysql_fetch_array($result_shift))
-	{
-		$shift_money_5 = $row_shift['total_discount'];
-	}
-
-	$result_shift = mysql_query("SELECT SUM(discount_amount) AS total_discount_amount FROM reports WHERE day = '$shift_day' AND month = '$shift_month' AND year = '$Year' AND status = 'done' AND shift = '$current_shift'");
-	while($row_shift = mysql_fetch_array($result_shift))
-	{
-		$shift_money_6 = $row_shift['total_discount_amount'];
-	}
-
-	$result_shift = mysql_query("SELECT SUM(discount2) AS total_reports2_discount FROM reports2 WHERE day = '$shift_day' AND month = '$shift_month' AND year = '$Year' AND shift = '$current_shift' AND status = 'done'");
-	while($row_shift = mysql_fetch_array($result_shift))
-	{
-		$shift_disdiscount = $row_shift['total_reports2_discount'];
-	}
-
-	$shift_total = (float)$shift_money_1 + (float)$shift_money_2 + (float)$shift_money_3 - (float)$shift_money_4 - (float)$shift_money_5 - (float)$shift_money_6 - (float)$shift_disdiscount;
-}
 
  
 		  
@@ -190,9 +139,6 @@ $('#shiftauth').modal({backdrop: 'static', keyboard: false})
 	<br />
 		<input type="image" src="img/app/buttons/shift-end.png" onclick="return confirm('<?php echo $lang_244;?>')" />
 		</form>
-			 <br/>
-			 <span class="shift" style="font-weight:bold;"><?php echo 'حساب الشيفت';?>:</span><br/>
-			 <span class="shift" style="color:green;"><?php echo number_format($shift_total, 2);?> <?php echo $lang_100;?></span>
 			 <br/><br/>
 
 	<?php echo $lang_289;?>:  
@@ -279,9 +225,6 @@ $('#shiftauth').modal({backdrop: 'static', keyboard: false})
 	<br/>
 		<input type="image" src="img/app/buttons/shift-end.png" onclick="return confirm('<?php echo $lang_244;?>')" />
 		</form>
-		 <br/>
-		 <span class="shift" style="font-weight:bold;"><?php echo 'حساب الشيفت';?>:</span><br/>
-		 <span class="shift" style="color:green;"><?php echo number_format($shift_total, 2);?> <?php echo $lang_100;?></span>
 		 <br/><br/>
 		<?php echo $lang_289;?>:  
  
