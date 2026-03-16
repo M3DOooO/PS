@@ -5,6 +5,7 @@ if( !isset($_SESSION['ps_user']) )
 	die();
 }
 include('includes/config.php');
+include('includes/room_order_helpers.php');
 if($lang == 'en'){include('languages/en.php');}else if($lang == 'ar'){include('languages/ar.php');}$id = $_GET['id']; $id=$_GET['id'];			
 $var1=$_POST['p_name']; 
 $Year = idate('Y');
@@ -332,6 +333,7 @@ while($row = mysql_fetch_array($resulty))
 </tr>
 <tr>
 <td colspan="6"><a class="btn-setting" href="#" data-toggle="modal" data-target="#myModalxx"><img style="margin-left:10px; float:left;" src="img/app/buttons/stop.png" title="<?php echo $lang_335;?>" data-rel="tooltip"/></a>
+<a href="room_qr.php?id=<?php echo $id; ?>" target="_blank" class="btn btn-info" style="margin:10px;float:right;">QR الروم</a>
 <a href="devices_ps.php?id=<?php echo $id;?>"><img style="margin:5px 10px 0 0; float:right;" src="img/app/devices/reload.png" width="45" height="45" title="<?php echo $lang_333;?>" data-rel="tooltip"></a></td>
 </tr>
 
