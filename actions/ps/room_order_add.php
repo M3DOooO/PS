@@ -60,6 +60,7 @@ $roomName = isset($device['Device Name']) ? $device['Device Name'] : ('#' . $roo
 foreach ($items as $item) {
     $name = isset($item['name']) ? trim($item['name']) : '';
     $qty = isset($item['qty']) ? (int)$item['qty'] : 0;
+    $availableFromMenu = isset($item['available']) ? (int)$item['available'] : 0;
 
     if ($name === '' || $qty <= 0) {
         continue;
@@ -67,6 +68,9 @@ foreach ($items as $item) {
 
     if ($qty > 8) {
         $qty = 8;
+    }
+    if ($availableFromMenu > 0 && $qty > $availableFromMenu) {
+        $qty = $availableFromMenu;
     }
 
     $nameEsc = mysql_real_escape_string($name);

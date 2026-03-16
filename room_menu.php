@@ -78,18 +78,17 @@ body{background:#f5f5f5;font-family:Tahoma}
         <table class="table table-bordered tbl">
             <thead>
                 <tr>
-                    <th>الصنف</th>
-                    <th>الكمية</th>
+                    <th>الصنف (المتاح)</th>
                     <th>اختيار الكمية (1-8)</th>
                 </tr>
             </thead>
             <tbody>
             <?php foreach ($products as $index => $item) { ?>
                 <tr>
-                    <td><?php echo htmlspecialchars($item['name']); ?></td>
-                    <td><?php echo (int)$item['available']; ?></td>
+                    <td><?php echo htmlspecialchars($item['name']); ?> (<?php echo (int)$item['available']; ?>)</td>
                     <td>
                         <input type="hidden" name="items[<?php echo $index; ?>][name]" value="<?php echo htmlspecialchars($item['name']); ?>">
+                        <input type="hidden" name="items[<?php echo $index; ?>][available]" value="<?php echo (int)$item['available']; ?>">
                         <select name="items[<?php echo $index; ?>][qty]">
                             <option value="0">0</option>
                             <?php for ($q = 1; $q <= 8; $q++) { ?>
