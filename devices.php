@@ -1001,9 +1001,20 @@ else if($user_shift == '1')
         box = document.createElement('div');
         box.id = 'room-order-toast';
         box.style.cssText = 'display:none;position:fixed;top:20px;right:20px;width:280px;min-height:120px;background:#1f2937;color:#fff;border:2px solid #33b5e5;border-radius:10px;padding:12px;z-index:99999;box-shadow:0 6px 20px rgba(0,0,0,.35);font-family:Tahoma;';
-        box.innerHTML = '<div style="font-weight:bold;font-size:16px;margin-bottom:8px;">طلب جديد</div>' +
+        box.innerHTML = '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">' +
+                        '<div style="font-weight:bold;font-size:16px;">طلب جديد</div>' +
+                        '<button id="room-order-toast-close" type="button" style="background:transparent;border:1px solid #fff;color:#fff;border-radius:4px;width:24px;height:24px;line-height:20px;cursor:pointer;">×</button>' +
+                        '</div>' +
                         '<div id="room-order-toast-room" style="margin-bottom:6px;"></div>' +
                         '<div id="room-order-toast-order" style="line-height:1.5;"></div>';
+        setTimeout(function(){
+            var closeBtn = document.getElementById('room-order-toast-close');
+            if (closeBtn) {
+                closeBtn.onclick = function() {
+                    box.style.display = 'none';
+                };
+            }
+        }, 0);
         document.body.appendChild(box);
         return box;
     }
@@ -1026,10 +1037,6 @@ else if($user_shift == '1')
         orderEl.textContent = orderPart.trim();
 
         box.style.display = 'block';
-        clearTimeout(window.__roomOrderToastTimeout);
-        window.__roomOrderToastTimeout = setTimeout(function() {
-            box.style.display = 'none';
-        }, 10000);
     }
 
     function checkRoomOrderAlerts() {
