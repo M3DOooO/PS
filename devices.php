@@ -992,6 +992,32 @@ else if($user_shift == '1')
 <script src="js/jquery.history.js"></script>
 <!-- application script for Charisma demo -->
 <script src="js/charisma.js"></script>
+<script>
+(function() {
+    function checkRoomOrderAlerts() {
+        $.ajax({
+            url: 'actions/ps/order_alert_poll.php',
+            dataType: 'json',
+            cache: false,
+            success: function(resp) {
+                if (!resp || !resp.ok || !resp.has_alert) {
+                    return;
+                }
+
+                try {
+                    var snd = new Audio('sounds/aa.mp3');
+                    snd.play();
+                } catch (e) {}
+
+                var message = resp.message || 'يوجد طلب جديد من روم';
+                alert(message);
+            }
+        });
+    }
+
+    setInterval(checkRoomOrderAlerts, 5000);
+})();
+</script>
 
 </body>
 </html>
