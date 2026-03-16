@@ -89,9 +89,10 @@ body{background:#f5f5f5;font-family:Tahoma}
                     <td>
                         <input type="hidden" name="items[<?php echo $index; ?>][name]" value="<?php echo htmlspecialchars($item['name']); ?>">
                         <input type="hidden" name="items[<?php echo $index; ?>][available]" value="<?php echo (int)$item['available']; ?>">
+                        <?php $maxQty = ((int)$item['available'] < 8) ? (int)$item['available'] : 8; ?>
                         <select name="items[<?php echo $index; ?>][qty]">
                             <option value="0">0</option>
-                            <?php for ($q = 1; $q <= 8; $q++) { ?>
+                            <?php for ($q = 1; $q <= $maxQty; $q++) { ?>
                                 <option value="<?php echo $q; ?>"><?php echo $q; ?></option>
                             <?php } ?>
                         </select>

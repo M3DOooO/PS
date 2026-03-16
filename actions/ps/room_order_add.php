@@ -167,7 +167,9 @@ foreach ($items as $item) {
 }
 
 if (count($orderedItems) > 0) {
-    $noteText = '[ROOM_ORDER]|' . $roomName . '|' . implode(', ', $orderedItems);
+    $alertPayload = array('room' => $roomName, 'order' => implode(', ', $orderedItems));
+    $alertJson = json_encode($alertPayload, JSON_UNESCAPED_UNICODE);
+    $noteText = '[ROOM_ORDER_B64]' . base64_encode($alertJson);
     $noteTextEsc = mysql_real_escape_string($noteText);
     $noteHour = idate('H');
     $noteYear = idate('Y');
