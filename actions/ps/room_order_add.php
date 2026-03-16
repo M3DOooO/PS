@@ -13,12 +13,19 @@ function room_order_redirect($roomId, $token, $error = '')
     exit;
 }
 
+function room_order_fail($roomId, $token, $code)
+{
+    $dbErr = mysql_error();
+    $suffix = ($dbErr !== '') ? ('-' . substr(md5($dbErr), 0, 6)) : '';
+    room_order_redirect($roomId, $token, $code . $suffix);
+}
+
 mysql_connect("$host", "$user", "$pass")or die("cannot connect");
 mysql_select_db("$db")or die("cannot select DB");
 
 $roomId = isset($_POST['room']) ? (int)$_POST['room'] : 0;
 $token = isset($_POST['token']) ? $_POST['token'] : '';
-$items = isset($_POST['items']) ? $_POST['items'] : array();
+$items = (isset($_POST['items']) && is_array($_POST['items'])) ? $_POST['items'] : array();
 
 if ($roomId <= 0 || $token == '') {
     header('Location: ../../devices.php');
@@ -26,6 +33,9 @@ if ($roomId <= 0 || $token == '') {
 }
 
 $result = mysql_query("SELECT * FROM `devices` WHERE `ID` = '$roomId' LIMIT 1");
+if (!$result) {
+    room_order_fail($roomId, $token, 'E-DVC-Q');
+}
 $device = mysql_fetch_array($result);
 if (!$device) {
     header('Location: ../../devices.php');
@@ -34,12 +44,12 @@ if (!$device) {
 
 $expectedToken = room_order_token($roomId, $device['Device Name']);
 if ($token !== $expectedToken) {
-    room_order_redirect($roomId, $token, 'invalid-token');
+    room_order_redirect($roomId, $token, 'E-TOKEN');
 }
 
 $sessionId = $device['session_id'];
 if ($device['Device Status'] !== 'On' || $sessionId == '') {
-    room_order_redirect($roomId, $token, 'room-not-active');
+    room_order_redirect($roomId, $token, 'E-ROOM');
 }
 
 $Hour = idate('H');
@@ -53,11 +63,15 @@ foreach ($items as $item) {
         continue;
     }
 
+    if ($qty > 8) {
+        $qty = 8;
+    }
+
     $nameEsc = mysql_real_escape_string($name);
 
     $minDateResult = mysql_query("SELECT MIN(date) AS mindate FROM `stock` WHERE `name` = '$nameEsc' AND (`stock` - `sold`) > 0");
     if (!$minDateResult) {
-        continue;
+        room_order_fail($roomId, $token, 'E-STOCK-MIN');
     }
     $minDateRow = mysql_fetch_array($minDateResult);
     $mindate = $minDateRow['mindate'];
@@ -67,7 +81,7 @@ foreach ($items as $item) {
 
     $stockResult = mysql_query("SELECT * FROM `stock` WHERE `name` = '$nameEsc' AND `date` = '$mindate' LIMIT 1");
     if (!$stockResult) {
-        continue;
+        room_order_fail($roomId, $token, 'E-STOCK-ROW');
     }
     $stockRow = mysql_fetch_array($stockResult);
     if (!$stockRow) {
@@ -84,48 +98,63 @@ foreach ($items as $item) {
         continue;
     }
 
-    $catagory = $stockRow['catagory'];
-    $subCat = $stockRow['sub_cat'];
+    $catagory = mysql_real_escape_string($stockRow['catagory']);
+    $subCat = mysql_real_escape_string($stockRow['sub_cat']);
     $unitPrice = (float)$stockRow['price'];
     $total = $unitPrice * $finalQty;
     $newSold = (int)$stockRow['sold'] + $finalQty;
 
-    mysql_query("INSERT INTO `ps_orders` (`catagory`, `sub_cat`, `name`, `price`, `num`, `ps_id`, `session_id`, `day`, `month`, `year`, `hour`) VALUES ('" . mysql_real_escape_string($catagory) . "', '" . mysql_real_escape_string($subCat) . "', '$nameEsc', '$total', '$finalQty', '$roomId', '$sessionId', '$shift_day', '$shift_month', '$Year', '$Hour')");
-    mysql_query("UPDATE `stock` SET `sold` = '$newSold' WHERE `name` = '$nameEsc' AND `date` = '$mindate'");
+    $insertOrder = mysql_query("INSERT INTO `ps_orders` (`catagory`, `sub_cat`, `name`, `price`, `num`, `ps_id`, `session_id`, `day`, `month`, `year`, `hour`) VALUES ('$catagory', '$subCat', '$nameEsc', '$total', '$finalQty', '$roomId', '$sessionId', '$shift_day', '$shift_month', '$Year', '$Hour')");
+    if (!$insertOrder) {
+        room_order_fail($roomId, $token, 'E-ORDER-INS');
+    }
+
+    $updateStock = mysql_query("UPDATE `stock` SET `sold` = '$newSold' WHERE `name` = '$nameEsc' AND `date` = '$mindate'");
+    if (!$updateStock) {
+        room_order_fail($roomId, $token, 'E-STOCK-UPD');
+    }
 
     $recipeResult = mysql_query("SELECT * FROM `recipe` WHERE `item` = '$nameEsc'");
     if (!$recipeResult) {
-        continue;
+        room_order_fail($roomId, $token, 'E-RECIPE-Q');
     }
-    while ($recipeRow = mysql_fetch_array($recipeResult)) {
-        $ingName = $recipeRow['ing_name'];
-        $ingQtyNeed = $recipeRow['ing_qty'] * $finalQty;
-        $ingEsc = mysql_real_escape_string($ingName);
 
-        $ingMinDateResult = mysql_query("SELECT MIN(date) AS mindate FROM `ingredients` WHERE `name` = '$ingEsc' AND (`stock` - `sold`) >= '$ingQtyNeed'");
+    while ($recipeRow = mysql_fetch_array($recipeResult)) {
+        $ingName = mysql_real_escape_string($recipeRow['ing_name']);
+        $ingQtyNeed = $recipeRow['ing_qty'] * $finalQty;
+
+        $ingMinDateResult = mysql_query("SELECT MIN(date) AS mindate FROM `ingredients` WHERE `name` = '$ingName' AND (`stock` - `sold`) >= '$ingQtyNeed'");
         if (!$ingMinDateResult) {
-            continue;
+            room_order_fail($roomId, $token, 'E-ING-MIN');
         }
+
         $ingMinDateRow = mysql_fetch_array($ingMinDateResult);
         $ingMinDate = $ingMinDateRow['mindate'];
         if (!$ingMinDate) {
             continue;
         }
 
-        $ingResult = mysql_query("SELECT * FROM `ingredients` WHERE `name` = '$ingEsc' AND `date` = '$ingMinDate' LIMIT 1");
+        $ingResult = mysql_query("SELECT * FROM `ingredients` WHERE `name` = '$ingName' AND `date` = '$ingMinDate' LIMIT 1");
         if (!$ingResult) {
-            continue;
+            room_order_fail($roomId, $token, 'E-ING-ROW');
         }
+
         $ingRow = mysql_fetch_array($ingResult);
         if (!$ingRow) {
             continue;
         }
 
         $newIngSold = (float)$ingRow['sold'] + $ingQtyNeed;
-        mysql_query("UPDATE `ingredients` SET `sold` = '$newIngSold' WHERE `name` = '$ingEsc' AND `date` = '$ingMinDate'");
+        $ingUpdate = mysql_query("UPDATE `ingredients` SET `sold` = '$newIngSold' WHERE `name` = '$ingName' AND `date` = '$ingMinDate'");
+        if (!$ingUpdate) {
+            room_order_fail($roomId, $token, 'E-ING-UPD');
+        }
 
         $newIngAvl = (float)$recipeRow['ing_avl'] - $ingQtyNeed;
-        mysql_query("UPDATE `recipe` SET `ing_avl` = '$newIngAvl' WHERE `ing_name` = '$ingEsc'");
+        $recipeUpdate = mysql_query("UPDATE `recipe` SET `ing_avl` = '$newIngAvl' WHERE `ing_name` = '$ingName'");
+        if (!$recipeUpdate) {
+            room_order_fail($roomId, $token, 'E-RECIPE-UPD');
+        }
     }
 }
 

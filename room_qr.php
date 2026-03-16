@@ -26,27 +26,18 @@ $deviceName = $device['Device Name'];
 $token = room_order_token($roomId, $deviceName);
 $baseUrl = room_order_build_base_url();
 $roomMenuUrl = $baseUrl . '/room_menu.php?room=' . $roomId . '&token=' . $token;
-$qrUrl = 'https://quickchart.io/qr?text=' . urlencode($roomMenuUrl) . '&size=280';
+$qrUrl = 'https://quickchart.io/qr?text=' . urlencode($roomMenuUrl) . '&size=900';
 ?><!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="utf-8">
-<title>QR روم <?php echo htmlspecialchars($deviceName); ?></title>
-<link rel="stylesheet" href="css/bootstrap-classic.min.css">
+<title>QR</title>
 <style>
-body{font-family:Tahoma;background:#f8f9fa;padding:20px;text-align:center}
-.box{max-width:420px;margin:0 auto;background:#fff;border-radius:10px;padding:20px;box-shadow:0 2px 8px rgba(0,0,0,.1)}
-img{max-width:100%}
-.url{direction:ltr;word-break:break-all;background:#f1f1f1;padding:8px;border-radius:6px;font-size:12px}
+html,body{margin:0;padding:0;background:#fff;text-align:center}
+img{display:block;margin:0 auto;max-width:100vw;max-height:100vh}
 </style>
 </head>
 <body>
-<div class="box">
-    <h3>QR روم: <?php echo htmlspecialchars($deviceName); ?></h3>
-    <p>اسكان الكود لعرض قائمة المنتجات وطلبها مباشرة على حساب الروم.</p>
-    <img src="<?php echo $qrUrl; ?>" alt="Room QR">
-    <p class="url"><?php echo htmlspecialchars($roomMenuUrl); ?></p>
-    <a class="btn btn-primary" href="devices_ps.php?id=<?php echo $roomId; ?>">رجوع للروم</a>
-</div>
+<img src="<?php echo $qrUrl; ?>" alt="Room QR">
 </body>
 </html>

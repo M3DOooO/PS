@@ -15,7 +15,7 @@ if (isset($_GET['ok']) && $_GET['ok'] == '1') {
     $messageType = 'success';
 }
 if (isset($_GET['err']) && $_GET['err'] != '') {
-    $message = 'تعذر تنفيذ الطلب حالياً، برجاء المحاولة مرة أخرى أو التواصل مع الكاشير.';
+    $message = 'تعذر تنفيذ الطلب حالياً. كود الخطأ: ' . htmlspecialchars($_GET['err']);
     $messageType = 'danger';
 }
 
@@ -41,11 +41,11 @@ if ($device['Device Status'] !== 'On' || $sessionId == '') {
 }
 
 $products = array();
-$stockSql = "SELECT name, catagory, sub_cat, MAX(price) AS price, SUM(stock - sold) AS available
+$stockSql = "SELECT name, SUM(stock - sold) AS available
              FROM stock
-             GROUP BY name, catagory, sub_cat
+             GROUP BY name
              HAVING available > 0
-             ORDER BY catagory, sub_cat, name";
+             ORDER BY name";
 $stockResult = mysql_query($stockSql);
 while ($row = mysql_fetch_assoc($stockResult)) {
     $products[] = $row;
@@ -60,19 +60,18 @@ while ($row = mysql_fetch_assoc($stockResult)) {
 <style>
 body{background:#f5f5f5;font-family:Tahoma}
 .wrap{max-width:900px;margin:20px auto;background:#fff;padding:15px;border-radius:10px}
-.tbl input{width:70px}
+.tbl select{width:90px}
 </style>
 </head>
 <body>
 <div class="wrap">
     <h3>طلبات روم: <?php echo htmlspecialchars($device['Device Name']); ?></h3>
-    <p>اختر الكمية ثم اضغط <b>تأكيد الطلب</b> وسيتم إضافتها تلقائياً على حساب الروم الحالي.</p>
 
     <?php if ($message != '') { ?>
         <div class="alert alert-<?php echo $messageType; ?>"><?php echo $message; ?></div>
     <?php } ?>
 
-    <?php if ($message == '') { ?>
+    <?php if ($message == '' || $messageType == 'success') { ?>
     <form method="POST" action="actions/ps/room_order_add.php">
         <input type="hidden" name="room" value="<?php echo $roomId; ?>">
         <input type="hidden" name="token" value="<?php echo htmlspecialchars($token); ?>">
@@ -80,22 +79,23 @@ body{background:#f5f5f5;font-family:Tahoma}
             <thead>
                 <tr>
                     <th>الصنف</th>
-                    <th>القسم</th>
-                    <th>متاح</th>
-                    <th>السعر</th>
-                    <th>الكمية</th>
+                    <th>المتوفر</th>
+                    <th>اختيار الكمية (1-8)</th>
                 </tr>
             </thead>
             <tbody>
             <?php foreach ($products as $index => $item) { ?>
                 <tr>
                     <td><?php echo htmlspecialchars($item['name']); ?></td>
-                    <td><?php echo htmlspecialchars($item['catagory'] . ' / ' . $item['sub_cat']); ?></td>
                     <td><?php echo (int)$item['available']; ?></td>
-                    <td><?php echo (float)$item['price']; ?></td>
                     <td>
                         <input type="hidden" name="items[<?php echo $index; ?>][name]" value="<?php echo htmlspecialchars($item['name']); ?>">
-                        <input type="number" min="0" max="<?php echo (int)$item['available']; ?>" value="0" name="items[<?php echo $index; ?>][qty]">
+                        <select name="items[<?php echo $index; ?>][qty]">
+                            <option value="0">0</option>
+                            <?php for ($q = 1; $q <= 8; $q++) { ?>
+                                <option value="<?php echo $q; ?>"><?php echo $q; ?></option>
+                            <?php } ?>
+                        </select>
                     </td>
                 </tr>
             <?php } ?>
