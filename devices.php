@@ -992,6 +992,67 @@ else if($user_shift == '1')
 <script src="js/jquery.history.js"></script>
 <!-- application script for Charisma demo -->
 <script src="js/charisma.js"></script>
+<script>
+(function() {
+    function ensureOrderToast() {
+        var box = document.getElementById('room-order-toast');
+        if (box) return box;
+
+        box = document.createElement('div');
+        box.id = 'room-order-toast';
+        box.style.cssText = 'display:none;position:fixed;top:20px;right:20px;width:280px;min-height:120px;background:#1f2937;color:#fff;border:2px solid #33b5e5;border-radius:10px;padding:12px;z-index:99999;box-shadow:0 6px 20px rgba(0,0,0,.35);font-family:Tahoma;';
+        box.innerHTML = '<div style="font-weight:bold;font-size:16px;margin-bottom:8px;">طلب جديد</div>' +
+                        '<div id="room-order-toast-room" style="margin-bottom:6px;"></div>' +
+                        '<div id="room-order-toast-order" style="line-height:1.5;"></div>';
+        document.body.appendChild(box);
+        return box;
+    }
+
+    function showRoomOrderToast(message) {
+        var box = ensureOrderToast();
+        var roomEl = document.getElementById('room-order-toast-room');
+        var orderEl = document.getElementById('room-order-toast-order');
+
+        var msg = message || '';
+        var roomPart = msg;
+        var orderPart = '';
+        if (msg.indexOf('طلب:') !== -1) {
+            var parts = msg.split('طلب:');
+            roomPart = parts[0];
+            orderPart = 'الطلب: ' + parts.slice(1).join('طلب:');
+        }
+
+        roomEl.textContent = roomPart.trim();
+        orderEl.textContent = orderPart.trim();
+
+        box.style.display = 'block';
+        clearTimeout(window.__roomOrderToastTimeout);
+        window.__roomOrderToastTimeout = setTimeout(function() {
+            box.style.display = 'none';
+        }, 10000);
+    }
+
+    function checkRoomOrderAlerts() {
+        $.ajax({
+            url: 'actions/ps/order_alert_poll.php',
+            dataType: 'json',
+            cache: false,
+            success: function(resp) {
+                if (!resp || !resp.ok || !resp.has_alert) {
+                    return;
+                }
+                var msg = resp.message || 'Room order';
+                if (resp.room || resp.order) {
+                    msg = 'Room ' + (resp.room || '') + ': ' + (resp.order || '');
+                }
+                showRoomOrderToast(msg);
+            }
+        });
+    }
+
+    setInterval(checkRoomOrderAlerts, 5000);
+})();
+</script>
 
 </body>
 </html>
