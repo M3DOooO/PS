@@ -1,4 +1,4 @@
-<?php
+<?php session_start();
 include('includes/config.php');
 include('includes/room_order_helpers.php');
 
@@ -9,6 +9,15 @@ $roomId = isset($_GET['room']) ? (int)$_GET['room'] : 0;
 $token = isset($_GET['token']) ? $_GET['token'] : '';
 $message = '';
 $messageType = 'danger';
+
+if (isset($_GET['ok']) && $_GET['ok'] == '1') {
+    $message = 'تم إرسال الطلب بنجاح وإضافته على حساب الروم.';
+    $messageType = 'success';
+}
+if (isset($_GET['err']) && $_GET['err'] != '') {
+    $message = 'تعذر تنفيذ الطلب حالياً، برجاء المحاولة مرة أخرى أو التواصل مع الكاشير.';
+    $messageType = 'danger';
+}
 
 if ($roomId <= 0 || $token == '') {
     die('Invalid link');
@@ -28,6 +37,7 @@ if ($token !== $expectedToken) {
 $sessionId = $device['session_id'];
 if ($device['Device Status'] !== 'On' || $sessionId == '') {
     $message = 'الروم غير مفتوح حالياً. اطلب من الكاشير تشغيل الروم أولاً.';
+    $messageType = 'danger';
 }
 
 $products = array();
