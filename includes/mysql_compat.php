@@ -84,6 +84,17 @@ if (!function_exists('mysql_connect')) {
         return mysqli_num_fields($result);
     }
 
+
+    function mysql_real_escape_string($unescaped_string, $link_identifier = null)
+    {
+        $link = $link_identifier ?: ($GLOBALS['__mysql_compat_last_connection'] ?? null);
+        if (!$link) {
+            return addslashes((string)$unescaped_string);
+        }
+
+        return mysqli_real_escape_string($link, (string)$unescaped_string);
+    }
+
     function mysql_error($link_identifier = null)
     {
         $link = $link_identifier ?: ($GLOBALS['__mysql_compat_last_connection'] ?? null);
