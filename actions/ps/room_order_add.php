@@ -167,7 +167,7 @@ foreach ($items as $item) {
 }
 
 if (count($orderedItems) > 0) {
-    $noteText = '[ROOM_ORDER] روم ' . $roomName . ' طلب: ' . implode(' ، ', $orderedItems);
+    $noteText = '[ROOM_ORDER]|' . $roomName . '|' . implode(', ', $orderedItems);
     $noteTextEsc = mysql_real_escape_string($noteText);
     $noteHour = idate('H');
     $noteYear = idate('Y');

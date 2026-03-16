@@ -1041,7 +1041,11 @@ else if($user_shift == '1')
                 if (!resp || !resp.ok || !resp.has_alert) {
                     return;
                 }
-                showRoomOrderToast(resp.message || 'يوجد طلب جديد من روم');
+                var msg = resp.message || 'Room order';
+                if (resp.room || resp.order) {
+                    msg = 'Room ' + (resp.room || '') + ': ' + (resp.order || '');
+                }
+                showRoomOrderToast(msg);
             }
         });
     }

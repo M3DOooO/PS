@@ -25,7 +25,16 @@ if (!$row) {
 
 $noteId = (int)$row['id'];
 $noteText = $row['note'];
+$room = '';
+$order = '';
 $message = trim(str_replace('[ROOM_ORDER]', '', $noteText));
+
+if (strpos($noteText, '[ROOM_ORDER]|') === 0) {
+    $parts = explode('|', $noteText, 3);
+    $room = isset($parts[1]) ? trim($parts[1]) : '';
+    $order = isset($parts[2]) ? trim($parts[2]) : '';
+    $message = 'Room ' . $room . ': ' . $order;
+}
 
 mysql_query("UPDATE `notes` SET `seen` = 'yes' WHERE `id` = '$noteId'");
 
@@ -34,5 +43,7 @@ echo json_encode(array(
     'has_alert' => true,
     'id' => $noteId,
     'message' => $message,
+    'room' => $room,
+    'order' => $order,
 ));
 exit;
