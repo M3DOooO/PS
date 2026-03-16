@@ -79,7 +79,7 @@ body{background:#f5f5f5;font-family:Tahoma}
             <thead>
                 <tr>
                     <th>الصنف</th>
-                    <th>المتوفر</th>
+                    <th>الكمية</th>
                     <th>اختيار الكمية (1-8)</th>
                 </tr>
             </thead>

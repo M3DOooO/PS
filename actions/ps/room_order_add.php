@@ -54,6 +54,8 @@ if ($device['Device Status'] !== 'On' || $sessionId == '') {
 
 $Hour = idate('H');
 $Year = idate('Y');
+$orderedItems = array();
+$roomName = isset($device['Device Name']) ? $device['Device Name'] : ('#' . $roomId);
 
 foreach ($items as $item) {
     $name = isset($item['name']) ? trim($item['name']) : '';
@@ -156,6 +158,16 @@ foreach ($items as $item) {
             room_order_fail($roomId, $token, 'E-RECIPE-UPD');
         }
     }
+
+    $orderedItems[] = $name . ' x' . $finalQty;
+}
+
+if (count($orderedItems) > 0) {
+    $noteText = '[ROOM_ORDER] روم ' . $roomName . ' طلب: ' . implode(' ، ', $orderedItems);
+    $noteTextEsc = mysql_real_escape_string($noteText);
+    $noteHour = idate('H');
+    $noteYear = idate('Y');
+    mysql_query("INSERT INTO `notes` (`note`,`day`,`month`,`year`,`shift`,`casheer`,`hour`,`seen`) VALUES ('$noteTextEsc','$shift_day','$shift_month','$noteYear','$current_shift','QR','$noteHour','no')");
 }
 
 header('Location: ../../room_menu.php?room=' . $roomId . '&token=' . urlencode($token) . '&ok=1');
