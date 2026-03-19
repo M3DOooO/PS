@@ -54,6 +54,8 @@ if ($device['Device Status'] !== 'On' || $sessionId == '') {
 
 $Hour = idate('H');
 $Year = idate('Y');
+$orderDay = idate('d');
+$orderMonth = idate('m');
 $orderedItems = array();
 $roomName = isset($device['Device Name']) ? $device['Device Name'] : ('#' . $roomId);
 
@@ -110,7 +112,7 @@ foreach ($items as $item) {
     $total = $unitPrice * $finalQty;
     $newSold = (int)$stockRow['sold'] + $finalQty;
 
-    $insertOrder = mysql_query("INSERT INTO `ps_orders` (`catagory`, `sub_cat`, `name`, `price`, `num`, `ps_id`, `session_id`, `day`, `month`, `year`, `hour`) VALUES ('$catagory', '$subCat', '$nameEsc', '$total', '$finalQty', '$roomId', '$sessionId', '$shift_day', '$shift_month', '$Year', '$Hour')");
+    $insertOrder = mysql_query("INSERT INTO `ps_orders` (`catagory`, `sub_cat`, `name`, `price`, `num`, `ps_id`, `session_id`, `day`, `month`, `year`, `hour`) VALUES ('$catagory', '$subCat', '$nameEsc', '$total', '$finalQty', '$roomId', '$sessionId', '$orderDay', '$orderMonth', '$Year', '$Hour')");
     if (!$insertOrder) {
         room_order_fail($roomId, $token, 'E-ORDER-INS');
     }
@@ -173,7 +175,7 @@ if (count($orderedItems) > 0) {
     $noteTextEsc = mysql_real_escape_string($noteText);
     $noteHour = idate('H');
     $noteYear = idate('Y');
-    mysql_query("INSERT INTO `notes` (`note`,`day`,`month`,`year`,`shift`,`casheer`,`hour`,`seen`) VALUES ('$noteTextEsc','$shift_day','$shift_month','$noteYear','$current_shift','QR','$noteHour','no')");
+    mysql_query("INSERT INTO `notes` (`note`,`day`,`month`,`year`,`shift`,`casheer`,`hour`,`seen`) VALUES ('$noteTextEsc','$orderDay','$orderMonth','$noteYear','$current_shift','QR','$noteHour','no')");
 }
 
 header('Location: ../../room_menu.php?room=' . $roomId . '&token=' . urlencode($token) . '&ok=1');
