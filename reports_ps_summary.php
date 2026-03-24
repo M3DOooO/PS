@@ -17,8 +17,9 @@ while($row = mysql_fetch_array($result))
 	$usern = $row['type'];
 }
 if($usern != 1 ){echo "<script>location='devices.php'</script>";}
-$id = $_GET['id'];  $id = $_GET['id']; 
- $sess = $_GET['session']; 
+$id = isset($_GET['id']) ? $_GET['id'] : '';
+$sess = isset($_GET['session']) ? $_GET['session'] : '';
+$session_id = isset($_GET['s']) ? $_GET['s'] : $sess;
 
  ?>
 <!DOCTYPE html>
@@ -73,7 +74,7 @@ function newPopup2(url) {
 			
 			<div id="content" class="span10">
 			<!-- content starts -->
-<h2><span class="btn-primary">&nbsp;&nbsp;<?php echo $lang_303;?>: <?php  $session_id = $_GET['s']; echo $session_id;?>&nbsp;&nbsp;</span></h2><br/>
+<h2><span class="btn-primary">&nbsp;&nbsp;<?php echo $lang_303;?>: <?php  echo $session_id;?>&nbsp;&nbsp;</span></h2><br/>
 <div class="row-fluid sortable">		
 				<div class="box span10">
 				 
@@ -82,7 +83,7 @@ function newPopup2(url) {
 					<thead> <tr><td colspan = "6" align="center"><center><b><font color="blue"><?php echo $lang_78;?></font></b></center></td></tr>
 
 						<?php 
-								$session_id = $_GET['s'];
+								$session_id = isset($_GET['s']) ? $_GET['s'] : $session_id;
 include('includes/config.php');
 // To connect to the database
 mysql_connect("$host", "$user", "$pass")or die("cannot connect");
@@ -157,10 +158,7 @@ while($rowb = mysql_fetch_array($resultb))
 mysql_connect("$host", "$user", "$pass")or die("cannot connect");
 mysql_select_db("$db")or die("cannot select DB");
 $result = mysql_query("SELECT * FROM `ps_orders` WHERE session_id = '$session_id'");
-	 while($row = mysql_fetch_array($result))
-{
-$check_orders = $row['num'];	
-}
+$check_orders = mysql_num_rows($result);
 if($check_orders > 0) 
 {
 ?>
