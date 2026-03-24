@@ -26,6 +26,15 @@ $session_id_safe = mysql_real_escape_string($session_id);
 $timing = 0;
 $discount = 0;
 $Items = 0;
+$ps_id = 0;
+$service = 0;
+$tax = 0;
+$discount_reason = '';
+$cash_u = '';
+$d = '';
+$m = '';
+$y = '';
+$shift_check2 = '';
 
 function ps_summary_log_error($code, $sql)
 {
@@ -245,15 +254,12 @@ if(mysql_num_rows($result) == 0 && $session_id_int > 0)
      echo "</tr>";
   }?>
 						  </tbody>
-					  </table>            
-					
-					
-
 						<?php 		
 }
 						else if($debug_mode){
-							echo "<div style='margin:10px 0;color:#ffb347'><code>PS-SUM-NODATA-ORDERS | session=".$session_id_safe."</code></div>";
+							echo "<tr><td colspan='6' align='center'><code>PS-SUM-NODATA-ORDERS | session=".$session_id_safe."</code></td></tr>";
 						}
+						echo "</table>";
 						$query = "SELECT  SUM(price) FROM ps_orders WHERE `session_id` = '$session_id_safe'";
  
 $resulty = mysql_query($query) or die(mysql_error());
