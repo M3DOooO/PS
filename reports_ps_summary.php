@@ -17,8 +17,14 @@ while($row = mysql_fetch_array($result))
 	$usern = $row['type'];
 }
 if($usern != 1 ){echo "<script>location='devices.php'</script>";}
-$id = $_GET['id'];  $id = $_GET['id']; 
- $sess = $_GET['session']; 
+$id = isset($_GET['id']) ? $_GET['id'] : '';
+$sess = isset($_GET['session']) ? $_GET['session'] : '';
+$session_id = isset($_GET['s']) ? $_GET['s'] : $sess;
+$session_id_int = (int)$session_id;
+$session_id_safe = mysql_real_escape_string($session_id);
+$timing = 0;
+$discount = 0;
+$Items = 0;
 
  ?>
 <!DOCTYPE html>
@@ -73,7 +79,7 @@ function newPopup2(url) {
 			
 			<div id="content" class="span10">
 			<!-- content starts -->
-<h2><span class="btn-primary">&nbsp;&nbsp;<?php echo $lang_303;?>: <?php  $session_id = $_GET['s']; echo $session_id;?>&nbsp;&nbsp;</span></h2><br/>
+<h2><span class="btn-primary">&nbsp;&nbsp;<?php echo $lang_303;?>: <?php  echo $session_id;?>&nbsp;&nbsp;</span></h2><br/>
 <div class="row-fluid sortable">		
 				<div class="box span10">
 				 
@@ -82,12 +88,17 @@ function newPopup2(url) {
 					<thead> <tr><td colspan = "6" align="center"><center><b><font color="blue"><?php echo $lang_78;?></font></b></center></td></tr>
 
 						<?php 
-								$session_id = $_GET['s'];
+								$session_id = isset($_GET['s']) ? $_GET['s'] : $session_id;
 include('includes/config.php');
 // To connect to the database
 mysql_connect("$host", "$user", "$pass")or die("cannot connect");
 mysql_select_db("$db")or die("cannot select DB");
-$result = mysql_query("SELECT * FROM `reports` WHERE session_id = '$session_id'");
+$result = mysql_query("SELECT * FROM `reports` WHERE `session_id` = '$session_id_safe'");
+if(mysql_num_rows($result) == 0 && $session_id_int > 0)
+{
+	$result = mysql_query("SELECT * FROM `reports` WHERE CAST(session_id AS UNSIGNED) = '$session_id_int'");
+}
+$has_reports = mysql_num_rows($result);
 
 ?>
 <tr>
@@ -140,15 +151,21 @@ $thetype = $row['type'];
      echo "<td><font color='green'>" . $row['money'] ."</font> ".$lang_100. "</td>";
  
   }
-  $resultb = mysql_query("SELECT SUM(money) FROM `reports` WHERE session_id = '$session_id'");
+  $resultb = mysql_query("SELECT SUM(money) FROM `reports` WHERE `session_id` = '$session_id_safe'");
+if(mysql_num_rows($resultb) == 0 && $session_id_int > 0)
+{
+	$resultb = mysql_query("SELECT SUM(money) FROM `reports` WHERE CAST(session_id AS UNSIGNED) = '$session_id_int'");
+}
 while($rowb = mysql_fetch_array($resultb))
 {
 	   $timing = $rowb['SUM(money)'];
-
-	   $total = $row['SUM(money)'] - $discount;
+	   $total = $timing - $discount;
 
 }
   ?>
+<?php if($has_reports == 0){ ?>
+<tr><td colspan="6" align="center"><b>لا توجد تفاصيل لعب مسجلة لهذه الفاتورة.</b></td></tr>
+<?php } ?>
 						  
 					 
 					 </tbody>
@@ -156,10 +173,12 @@ while($rowb = mysql_fetch_array($resultb))
   // To connect to the database
 mysql_connect("$host", "$user", "$pass")or die("cannot connect");
 mysql_select_db("$db")or die("cannot select DB");
-$result = mysql_query("SELECT * FROM `ps_orders` WHERE session_id = '$session_id'");
-	 while($row = mysql_fetch_array($result))
+$result = mysql_query("SELECT * FROM `ps_orders` WHERE `session_id` = '$session_id_safe'");
+$check_orders = mysql_num_rows($result);
+if($check_orders == 0 && $session_id_int > 0)
 {
-$check_orders = $row['num'];	
+	$result = mysql_query("SELECT * FROM `ps_orders` WHERE CAST(session_id AS UNSIGNED) = '$session_id_int'");
+	$check_orders = mysql_num_rows($result);
 }
 if($check_orders > 0) 
 {
@@ -171,7 +190,11 @@ if($check_orders > 0)
   // To connect to the database
 mysql_connect("$host", "$user", "$pass")or die("cannot connect");
 mysql_select_db("$db")or die("cannot select DB");
-$result = mysql_query("SELECT * FROM `ps_orders` WHERE session_id = '$session_id'");
+$result = mysql_query("SELECT * FROM `ps_orders` WHERE `session_id` = '$session_id_safe'");
+if(mysql_num_rows($result) == 0 && $session_id_int > 0)
+{
+	$result = mysql_query("SELECT * FROM `ps_orders` WHERE CAST(session_id AS UNSIGNED) = '$session_id_int'");
+}
 
 ?><thead>
 <tr>
@@ -204,7 +227,7 @@ $result = mysql_query("SELECT * FROM `ps_orders` WHERE session_id = '$session_id
 
 					<?php 		
 }
-					$query = "SELECT  SUM(price) FROM ps_orders WHERE session_id = '$session_id'";
+					$query = "SELECT  SUM(price) FROM ps_orders WHERE `session_id` = '$session_id_safe'";
 	 
 $resulty = mysql_query($query) or die(mysql_error());
 
