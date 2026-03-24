@@ -15,6 +15,8 @@ $Receipt = $reprep;
 $Minute = idate('i');
 $Second = idate('s'); 
 $Year = idate('Y');
+$RealDay = idate('d');
+$RealMonth = idate('m');
 $id = $_POST['id'];
 $H = idate('H');
 $tdis = $_POST['tdis']; 
@@ -131,8 +133,12 @@ if($min_time == 'True'){
 	mysql_query("UPDATE `reports` set `last` = ''  WHERE `session_id` != '$reprep'");        
 
 	///
-	mysql_query("UPDATE `reports` set `day` = '$shift_day'  WHERE `session_id` = '$reprep'");               
-	mysql_query("UPDATE `reports` set `month` = '$shift_month'  WHERE `session_id` = '$reprep'"); 
+	mysql_query("UPDATE `reports` set `day` = '$RealDay'  WHERE `session_id` = '$reprep'");               
+	mysql_query("UPDATE `reports` set `month` = '$RealMonth'  WHERE `session_id` = '$reprep'"); 
+	mysql_query("UPDATE `reports` set `year` = '$Year'  WHERE `session_id` = '$reprep'"); 
+    mysql_query("UPDATE `ps_orders` set `day` = '$RealDay'  WHERE `session_id` ='$reprep';"); 
+    mysql_query("UPDATE `ps_orders` set `month` = '$RealMonth'  WHERE `session_id` ='$reprep';"); 
+    mysql_query("UPDATE `ps_orders` set `year` = '$Year'  WHERE `session_id` ='$reprep';"); 
      ///
 	
 	//mysql_query("UPDATE `reports` set `discount2` = '$dda'  WHERE `session_id` = '$reprep'");               

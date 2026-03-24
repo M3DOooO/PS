@@ -17,8 +17,21 @@ while($row = mysql_fetch_array($result))
 	$usern = $row['type'];
 }
 if($usern != 1 ){echo "<script>location='devices.php'</script>";}
-$id = $_GET['id'];  $id = $_GET['id']; 
- $sess = $_GET['session']; 
+$id = isset($_GET['id']) ? $_GET['id'] : '';
+$sess = isset($_GET['session']) ? $_GET['session'] : '';
+$session_id = isset($_GET['s']) ? $_GET['s'] : $sess;
+$debug_mode = isset($_GET['debug']) && $_GET['debug'] == '1';
+$session_id_int = (int)$session_id;
+$session_id_safe = mysql_real_escape_string($session_id);
+$timing = 0;
+$discount = 0;
+$Items = 0;
+
+function ps_summary_log_error($code, $sql)
+{
+	$err = mysql_error();
+	error_log("[reports_ps_summary][$code] ".$err." | SQL: ".$sql);
+}
 
  ?>
 <!DOCTYPE html>
@@ -73,7 +86,7 @@ function newPopup2(url) {
 			
 			<div id="content" class="span10">
 			<!-- content starts -->
-<h2><span class="btn-primary">&nbsp;&nbsp;<?php echo $lang_303;?>: <?php  $session_id = $_GET['s']; echo $session_id;?>&nbsp;&nbsp;</span></h2><br/>
+<h2><span class="btn-primary">&nbsp;&nbsp;<?php echo $lang_303;?>: <?php  echo $session_id;?>&nbsp;&nbsp;</span></h2><br/>
 <div class="row-fluid sortable">		
 				<div class="box span10">
 				 
@@ -82,12 +95,21 @@ function newPopup2(url) {
 					<thead> <tr><td colspan = "6" align="center"><center><b><font color="blue"><?php echo $lang_78;?></font></b></center></td></tr>
 
 						<?php 
-								$session_id = $_GET['s'];
+								$session_id = isset($_GET['s']) ? $_GET['s'] : $session_id;
 include('includes/config.php');
 // To connect to the database
 mysql_connect("$host", "$user", "$pass")or die("cannot connect");
 mysql_select_db("$db")or die("cannot select DB");
-$result = mysql_query("SELECT * FROM `reports` WHERE session_id = '$session_id'");
+$sql_reports_exact = "SELECT * FROM `reports` WHERE `session_id` = '$session_id_safe'";
+$result = mysql_query($sql_reports_exact);
+if($result === false){ ps_summary_log_error('PS-SUM-REP-001', $sql_reports_exact); }
+if(mysql_num_rows($result) == 0 && $session_id_int > 0)
+{
+	$sql_reports_fallback = "SELECT * FROM `reports` WHERE CAST(session_id AS UNSIGNED) = '$session_id_int'";
+	$result = mysql_query($sql_reports_fallback);
+	if($result === false){ ps_summary_log_error('PS-SUM-REP-002', $sql_reports_fallback); }
+}
+$has_reports = mysql_num_rows($result);
 
 ?>
 <tr>
@@ -140,15 +162,26 @@ $thetype = $row['type'];
      echo "<td><font color='green'>" . $row['money'] ."</font> ".$lang_100. "</td>";
  
   }
-  $resultb = mysql_query("SELECT SUM(money) FROM `reports` WHERE session_id = '$session_id'");
+  $sql_money_exact = "SELECT SUM(money) FROM `reports` WHERE `session_id` = '$session_id_safe'";
+  $resultb = mysql_query($sql_money_exact);
+if($resultb === false){ ps_summary_log_error('PS-SUM-REP-003', $sql_money_exact); }
+if(mysql_num_rows($resultb) == 0 && $session_id_int > 0)
+{
+	$sql_money_fallback = "SELECT SUM(money) FROM `reports` WHERE CAST(session_id AS UNSIGNED) = '$session_id_int'";
+	$resultb = mysql_query($sql_money_fallback);
+	if($resultb === false){ ps_summary_log_error('PS-SUM-REP-004', $sql_money_fallback); }
+}
 while($rowb = mysql_fetch_array($resultb))
 {
 	   $timing = $rowb['SUM(money)'];
-
-	   $total = $row['SUM(money)'] - $discount;
+	   $total = $timing - $discount;
 
 }
   ?>
+<?php if($has_reports == 0){ ?>
+<tr><td colspan="6" align="center"><b>لا توجد تفاصيل لعب مسجلة لهذه الفاتورة.</b></td></tr>
+<?php if($debug_mode){ ?><tr><td colspan="6" align="center"><code>PS-SUM-NODATA-REPORTS | session=<?php echo $session_id_safe; ?></code></td></tr><?php } ?>
+<?php } ?>
 						  
 					 
 					 </tbody>
@@ -156,10 +189,16 @@ while($rowb = mysql_fetch_array($resultb))
   // To connect to the database
 mysql_connect("$host", "$user", "$pass")or die("cannot connect");
 mysql_select_db("$db")or die("cannot select DB");
-$result = mysql_query("SELECT * FROM `ps_orders` WHERE session_id = '$session_id'");
-	 while($row = mysql_fetch_array($result))
+$sql_orders_exact = "SELECT * FROM `ps_orders` WHERE `session_id` = '$session_id_safe'";
+$result = mysql_query($sql_orders_exact);
+if($result === false){ ps_summary_log_error('PS-SUM-ORD-001', $sql_orders_exact); }
+$check_orders = mysql_num_rows($result);
+if($check_orders == 0 && $session_id_int > 0)
 {
-$check_orders = $row['num'];	
+	$sql_orders_fallback = "SELECT * FROM `ps_orders` WHERE CAST(session_id AS UNSIGNED) = '$session_id_int'";
+	$result = mysql_query($sql_orders_fallback);
+	if($result === false){ ps_summary_log_error('PS-SUM-ORD-002', $sql_orders_fallback); }
+	$check_orders = mysql_num_rows($result);
 }
 if($check_orders > 0) 
 {
@@ -171,7 +210,15 @@ if($check_orders > 0)
   // To connect to the database
 mysql_connect("$host", "$user", "$pass")or die("cannot connect");
 mysql_select_db("$db")or die("cannot select DB");
-$result = mysql_query("SELECT * FROM `ps_orders` WHERE session_id = '$session_id'");
+$sql_orders_table = "SELECT * FROM `ps_orders` WHERE `session_id` = '$session_id_safe'";
+$result = mysql_query($sql_orders_table);
+if($result === false){ ps_summary_log_error('PS-SUM-ORD-003', $sql_orders_table); }
+if(mysql_num_rows($result) == 0 && $session_id_int > 0)
+{
+	$sql_orders_table_fallback = "SELECT * FROM `ps_orders` WHERE CAST(session_id AS UNSIGNED) = '$session_id_int'";
+	$result = mysql_query($sql_orders_table_fallback);
+	if($result === false){ ps_summary_log_error('PS-SUM-ORD-004', $sql_orders_table_fallback); }
+}
 
 ?><thead>
 <tr>
@@ -202,10 +249,13 @@ $result = mysql_query("SELECT * FROM `ps_orders` WHERE session_id = '$session_id
 					
 					
 
-					<?php 		
+						<?php 		
 }
-					$query = "SELECT  SUM(price) FROM ps_orders WHERE session_id = '$session_id'";
-	 
+						else if($debug_mode){
+							echo "<div style='margin:10px 0;color:#ffb347'><code>PS-SUM-NODATA-ORDERS | session=".$session_id_safe."</code></div>";
+						}
+						$query = "SELECT  SUM(price) FROM ps_orders WHERE `session_id` = '$session_id_safe'";
+ 
 $resulty = mysql_query($query) or die(mysql_error());
 
 // Print out result
