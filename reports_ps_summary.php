@@ -17,22 +17,9 @@ while($row = mysql_fetch_array($result))
 	$usern = $row['type'];
 }
 if($usern != 1 ){echo "<script>location='devices.php'</script>";}
-$id = isset($_GET['id']) ? $_GET['id'] : '';
-$sess = isset($_GET['session']) ? $_GET['session'] : '';
-$session_id = isset($_GET['s']) ? $_GET['s'] : $sess;
-$session_id_int = (int)$session_id;
+$id = $_GET['id'];  $id = $_GET['id']; 
+$sess = $_GET['session']; 
 $check_orders = 0;
-$Items = 0;
-$timing = 0;
-$discount = 0;
-$service = 0;
-$tax = 0;
-$discount_reason = '';
-$cash_u = '';
-$shift_check2 = '';
-$y = '';
-$m = '';
-$d = '';
 
  ?>
 <!DOCTYPE html>
@@ -112,6 +99,22 @@ if(mysql_num_rows($result) == 0 && $session_id_int > 0)
 		$result = mysql_query("SELECT * FROM `reports` WHERE session_id = '$session_id'");
 	}
 }
+$takeaway_rows = 0;
+if(mysql_num_rows($result) == 0)
+{
+	$takeaway_result = mysql_query("SELECT * FROM `reports2` WHERE session_id = '$session_id'");
+	$takeaway_rows = mysql_num_rows($takeaway_result);
+	if($takeaway_rows > 0)
+	{
+		$takeaway_first = mysql_fetch_array($takeaway_result);
+		$cash_u = $takeaway_first['casheer'];
+		$d = $takeaway_first['day'];
+		$m = $takeaway_first['month'];
+		$y = $takeaway_first['year'];
+		$shift_check = $takeaway_first['shift'];
+		if($shift_check == 'One'){$shift_check2= $lang_155;}else{$shift_check2 = $lang_156;}
+	}
+}
 
 ?>
 <tr>
@@ -173,7 +176,6 @@ if(mysql_num_rows($result) == 0)
 while($rowb = mysql_fetch_array($resultb))
 {
 	   $timing = $rowb['SUM(money)'];
-
 	   $total = $timing - $discount;
 
 }

@@ -139,7 +139,7 @@ if($min_time == 'True'){
     mysql_query("UPDATE `ps_orders` set `day` = '$RealDay'  WHERE `session_id` ='$reprep';"); 
     mysql_query("UPDATE `ps_orders` set `month` = '$RealMonth'  WHERE `session_id` ='$reprep';"); 
     mysql_query("UPDATE `ps_orders` set `year` = '$Year'  WHERE `session_id` ='$reprep';"); 
-    ///
+     ///
 	
 	//mysql_query("UPDATE `reports` set `discount2` = '$dda'  WHERE `session_id` = '$reprep'");               
 	//mysql_query("UPDATE `reports` set `discount_amount` = '$exact_discount'  WHERE `session_id` = '$reprep'");
