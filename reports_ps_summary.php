@@ -120,6 +120,24 @@ if($reports_rows == 0 && $session_id_int > 0)
 	if($result === false){ ps_summary_log_error('PS-SUM-REP-002', $sql_reports_fallback); }
 	$reports_rows = ($result !== false) ? mysql_num_rows($result) : 0;
 }
+if($reports_rows == 0 && $session_id_int > 0)
+{
+	$sql_reports_by_id = "SELECT `session_id` FROM `reports` WHERE `id` = '$session_id_int' LIMIT 1";
+	$by_id_result = mysql_query($sql_reports_by_id);
+	if($by_id_result === false){ ps_summary_log_error('PS-SUM-REP-003', $sql_reports_by_id); }
+	else{
+		$by_id_row = mysql_fetch_array($by_id_result);
+		if(isset($by_id_row['session_id']) && $by_id_row['session_id'] !== ''){
+			$session_id = $by_id_row['session_id'];
+			$session_id_safe = mysql_real_escape_string($session_id);
+			$session_id_int = (int)$session_id;
+			$sql_reports_exact = "SELECT * FROM `reports` WHERE `session_id` = '$session_id_safe'";
+			$result = mysql_query($sql_reports_exact);
+			if($result === false){ ps_summary_log_error('PS-SUM-REP-004', $sql_reports_exact); }
+			$reports_rows = ($result !== false) ? mysql_num_rows($result) : 0;
+		}
+	}
+}
 $has_reports = $reports_rows;
 
 ?>
@@ -175,12 +193,12 @@ $thetype = $row['type'];
   }
   $sql_money_exact = "SELECT SUM(money) FROM `reports` WHERE `session_id` = '$session_id_safe'";
   $resultb = mysql_query($sql_money_exact);
-if($resultb === false){ ps_summary_log_error('PS-SUM-REP-003', $sql_money_exact); }
+if($resultb === false){ ps_summary_log_error('PS-SUM-REP-005', $sql_money_exact); }
 if(mysql_num_rows($resultb) == 0 && $session_id_int > 0)
 {
 	$sql_money_fallback = "SELECT SUM(money) FROM `reports` WHERE CAST(session_id AS UNSIGNED) = '$session_id_int'";
 	$resultb = mysql_query($sql_money_fallback);
-	if($resultb === false){ ps_summary_log_error('PS-SUM-REP-004', $sql_money_fallback); }
+	if($resultb === false){ ps_summary_log_error('PS-SUM-REP-006', $sql_money_fallback); }
 }
 while($rowb = mysql_fetch_array($resultb))
 {
