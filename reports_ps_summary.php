@@ -17,22 +17,9 @@ while($row = mysql_fetch_array($result))
 	$usern = $row['type'];
 }
 if($usern != 1 ){echo "<script>location='devices.php'</script>";}
-$id = isset($_GET['id']) ? $_GET['id'] : '';
-$sess = isset($_GET['session']) ? $_GET['session'] : '';
-$session_id = isset($_GET['s']) ? $_GET['s'] : $sess;
-$session_id_int = (int)$session_id;
+$id = $_GET['id'];  $id = $_GET['id']; 
+$sess = $_GET['session']; 
 $check_orders = 0;
-$Items = 0;
-$timing = 0;
-$discount = 0;
-$service = 0;
-$tax = 0;
-$discount_reason = '';
-$cash_u = '';
-$shift_check2 = '';
-$y = '';
-$m = '';
-$d = '';
 
  ?>
 <!DOCTYPE html>
@@ -220,7 +207,7 @@ mysql_select_db("$db")or die("cannot select DB");
 $result = mysql_query("SELECT * FROM `ps_orders` WHERE session_id = '$session_id'");
 while($row = mysql_fetch_array($result))
 {
-	$check_orders = $check_orders + 1;
+	$check_orders = $check_orders + 1;	
 }
 if($check_orders > 0) 
 {
@@ -267,10 +254,13 @@ if(mysql_num_rows($result) == 0 && $session_id_int > 0)
      echo "</tr>";
   }?>
 						  </tbody>
+					
+					
+
 					<?php 		
 }
 ?>
-</table>
+</table>            
 <?php
 					$query = "SELECT  SUM(price) FROM ps_orders WHERE session_id = '$session_id'";
 	 
