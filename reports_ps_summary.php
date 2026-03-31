@@ -112,13 +112,15 @@ mysql_select_db("$db")or die("cannot select DB");
 $sql_reports_exact = "SELECT * FROM `reports` WHERE `session_id` = '$session_id_safe'";
 $result = mysql_query($sql_reports_exact);
 if($result === false){ ps_summary_log_error('PS-SUM-REP-001', $sql_reports_exact); }
-if(mysql_num_rows($result) == 0 && $session_id_int > 0)
+$reports_rows = ($result !== false) ? mysql_num_rows($result) : 0;
+if($reports_rows == 0 && $session_id_int > 0)
 {
 	$sql_reports_fallback = "SELECT * FROM `reports` WHERE CAST(session_id AS UNSIGNED) = '$session_id_int'";
 	$result = mysql_query($sql_reports_fallback);
 	if($result === false){ ps_summary_log_error('PS-SUM-REP-002', $sql_reports_fallback); }
+	$reports_rows = ($result !== false) ? mysql_num_rows($result) : 0;
 }
-$has_reports = mysql_num_rows($result);
+$has_reports = $reports_rows;
 
 ?>
 <tr>
@@ -188,7 +190,20 @@ while($rowb = mysql_fetch_array($resultb))
 }
   ?>
 <?php if($has_reports == 0){ ?>
-<tr><td colspan="6" align="center"><b>لا توجد تفاصيل لعب مسجلة لهذه الفاتورة.</b></td></tr>
+<tr><td colspan="6" align="center"><b style="color:#ff6b6b">لا توجد تفاصيل لعب مسجلة لهذه الفاتورة.</b></td></tr>
+<?php
+$alt_count = 0;
+$sql_alt = "SELECT COUNT(*) AS c FROM `reports2` WHERE `session_id` = '$session_id_safe'";
+$alt_result = mysql_query($sql_alt);
+if($alt_result === false){ ps_summary_log_error('PS-SUM-REP-ALT-001', $sql_alt); }
+else{
+	$alt_row = mysql_fetch_array($alt_result);
+	$alt_count = (int)$alt_row['c'];
+}
+if($alt_count > 0){
+?>
+<tr><td colspan="6" align="center"><a class="btn btn-warning" href="reports_takeaway_summary.php?s=<?php echo $session_id_safe; ?>">الفاتورة دي متسجلة كتقرير طلبات (Takeaway) - افتح التفاصيل من هنا</a></td></tr>
+<?php } ?>
 <?php if($debug_mode){ ?><tr><td colspan="6" align="center"><code>PS-SUM-NODATA-REPORTS | session=<?php echo $session_id_safe; ?></code></td></tr><?php } ?>
 <?php } ?>
 						  
