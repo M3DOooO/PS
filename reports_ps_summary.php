@@ -19,28 +19,13 @@ while($row = mysql_fetch_array($result))
 if($usern != 1 ){echo "<script>location='devices.php'</script>";}
 $id = isset($_GET['id']) ? $_GET['id'] : '';
 $sess = isset($_GET['session']) ? $_GET['session'] : '';
-$session_id = isset($_GET['s']) ? $_GET['s'] : $sess;
-$debug_mode = isset($_GET['debug']) && $_GET['debug'] == '1';
-$session_id_int = (int)$session_id;
-$session_id_safe = mysql_real_escape_string($session_id);
+$session_id = isset($_GET['s']) ? $_GET['s'] : '';
+$check_orders = 0;
+$Items = 0;
 $timing = 0;
 $discount = 0;
-$Items = 0;
-$ps_id = 0;
 $service = 0;
 $tax = 0;
-$discount_reason = '';
-$cash_u = '';
-$d = '';
-$m = '';
-$y = '';
-$shift_check2 = '';
-
-function ps_summary_log_error($code, $sql)
-{
-	$err = mysql_error();
-	error_log("[reports_ps_summary][$code] ".$err." | SQL: ".$sql);
-}
 
  ?>
 <!DOCTYPE html>
@@ -231,16 +216,10 @@ if($alt_count > 0){
   // To connect to the database
 mysql_connect("$host", "$user", "$pass")or die("cannot connect");
 mysql_select_db("$db")or die("cannot select DB");
-$sql_orders_exact = "SELECT * FROM `ps_orders` WHERE `session_id` = '$session_id_safe'";
-$result = mysql_query($sql_orders_exact);
-if($result === false){ ps_summary_log_error('PS-SUM-ORD-001', $sql_orders_exact); }
-$check_orders = mysql_num_rows($result);
-if($check_orders == 0 && $session_id_int > 0)
+$result = mysql_query("SELECT * FROM `ps_orders` WHERE session_id = '$session_id'");
+while($row = mysql_fetch_array($result))
 {
-	$sql_orders_fallback = "SELECT * FROM `ps_orders` WHERE CAST(session_id AS UNSIGNED) = '$session_id_int'";
-	$result = mysql_query($sql_orders_fallback);
-	if($result === false){ ps_summary_log_error('PS-SUM-ORD-002', $sql_orders_fallback); }
-	$check_orders = mysql_num_rows($result);
+	$check_orders = $check_orders + 1;
 }
 if($check_orders > 0) 
 {
@@ -287,14 +266,13 @@ if(mysql_num_rows($result) == 0 && $session_id_int > 0)
      echo "</tr>";
   }?>
 						  </tbody>
-						<?php 		
+					<?php 		
 }
-						else if($debug_mode){
-							echo "<tr><td colspan='6' align='center'><code>PS-SUM-NODATA-ORDERS | session=".$session_id_safe."</code></td></tr>";
-						}
-						echo "</table>";
-						$query = "SELECT  SUM(price) FROM ps_orders WHERE `session_id` = '$session_id_safe'";
- 
+?>
+</table>
+<?php
+					$query = "SELECT  SUM(price) FROM ps_orders WHERE session_id = '$session_id'";
+	 
 $resulty = mysql_query($query) or die(mysql_error());
 
 // Print out result
