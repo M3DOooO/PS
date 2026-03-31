@@ -57,7 +57,7 @@ mysql_query("SELECT GET_LOCK('reports_session_id_lock', 5)");
 $sql="SELECT MAX(session_id) AS max_session FROM reports";
 $result=mysql_query($sql);
 while($row = mysql_fetch_array($result))
-{
+{ 
   $last_session =  $row['max_session'];
 }
 if(!isset($last_session) || $last_session === '' || $last_session === null)
