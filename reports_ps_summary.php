@@ -17,8 +17,22 @@ while($row = mysql_fetch_array($result))
 	$usern = $row['type'];
 }
 if($usern != 1 ){echo "<script>location='devices.php'</script>";}
-$id = $_GET['id'];  $id = $_GET['id']; 
- $sess = $_GET['session']; 
+$id = isset($_GET['id']) ? $_GET['id'] : '';
+$sess = isset($_GET['session']) ? $_GET['session'] : '';
+$session_id = isset($_GET['s']) ? $_GET['s'] : $sess;
+$session_id_int = (int)$session_id;
+$check_orders = 0;
+$Items = 0;
+$timing = 0;
+$discount = 0;
+$service = 0;
+$tax = 0;
+$discount_reason = '';
+$cash_u = '';
+$shift_check2 = '';
+$y = '';
+$m = '';
+$d = '';
 
  ?>
 <!DOCTYPE html>
@@ -73,7 +87,7 @@ function newPopup2(url) {
 			
 			<div id="content" class="span10">
 			<!-- content starts -->
-<h2><span class="btn-primary">&nbsp;&nbsp;<?php echo $lang_303;?>: <?php  $session_id = $_GET['s']; echo $session_id;?>&nbsp;&nbsp;</span></h2><br/>
+<h2><span class="btn-primary">&nbsp;&nbsp;<?php echo $lang_303;?>: <?php  echo $session_id;?>&nbsp;&nbsp;</span></h2><br/>
 <div class="row-fluid sortable">		
 				<div class="box span10">
 				 
@@ -82,12 +96,22 @@ function newPopup2(url) {
 					<thead> <tr><td colspan = "6" align="center"><center><b><font color="blue"><?php echo $lang_78;?></font></b></center></td></tr>
 
 						<?php 
-								$session_id = $_GET['s'];
+								$session_id = isset($_GET['s']) ? $_GET['s'] : $session_id;
 include('includes/config.php');
 // To connect to the database
 mysql_connect("$host", "$user", "$pass")or die("cannot connect");
 mysql_select_db("$db")or die("cannot select DB");
 $result = mysql_query("SELECT * FROM `reports` WHERE session_id = '$session_id'");
+if(mysql_num_rows($result) == 0 && $session_id_int > 0)
+{
+	$result_id = mysql_query("SELECT session_id FROM `reports` WHERE id = '$session_id_int' LIMIT 1");
+	$row_id = mysql_fetch_array($result_id);
+	if(isset($row_id['session_id']) && $row_id['session_id'] != '')
+	{
+		$session_id = $row_id['session_id'];
+		$result = mysql_query("SELECT * FROM `reports` WHERE session_id = '$session_id'");
+	}
+}
 
 ?>
 <tr>
@@ -140,6 +164,10 @@ $thetype = $row['type'];
      echo "<td><font color='green'>" . $row['money'] ."</font> ".$lang_100. "</td>";
  
   }
+if(mysql_num_rows($result) == 0)
+{
+	echo "<tr><td colspan='6' align='center'>لا توجد تفاصيل مسجلة لهذه الفاتورة</td></tr>";
+}
   $resultb = mysql_query("SELECT SUM(money) FROM `reports` WHERE session_id = '$session_id'");
 while($rowb = mysql_fetch_array($resultb))
 {
@@ -157,9 +185,9 @@ while($rowb = mysql_fetch_array($resultb))
 mysql_connect("$host", "$user", "$pass")or die("cannot connect");
 mysql_select_db("$db")or die("cannot select DB");
 $result = mysql_query("SELECT * FROM `ps_orders` WHERE session_id = '$session_id'");
-	 while($row = mysql_fetch_array($result))
+while($row = mysql_fetch_array($result))
 {
-$check_orders = $row['num'];	
+	$check_orders = $check_orders + 1;
 }
 if($check_orders > 0) 
 {
@@ -198,12 +226,11 @@ $result = mysql_query("SELECT * FROM `ps_orders` WHERE session_id = '$session_id
      echo "</tr>";
   }?>
 						  </tbody>
-					  </table>            
-					
-					
-
 					<?php 		
 }
+?>
+</table>
+<?php
 					$query = "SELECT  SUM(price) FROM ps_orders WHERE session_id = '$session_id'";
 	 
 $resulty = mysql_query($query) or die(mysql_error());
