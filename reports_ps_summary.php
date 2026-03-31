@@ -18,7 +18,8 @@ while($row = mysql_fetch_array($result))
 }
 if($usern != 1 ){echo "<script>location='devices.php'</script>";}
 $id = $_GET['id'];  $id = $_GET['id']; 
- $sess = $_GET['session']; 
+$sess = $_GET['session']; 
+$check_orders = 0;
 
  ?>
 <!DOCTYPE html>
@@ -159,7 +160,7 @@ mysql_select_db("$db")or die("cannot select DB");
 $result = mysql_query("SELECT * FROM `ps_orders` WHERE session_id = '$session_id'");
 	 while($row = mysql_fetch_array($result))
 {
-$check_orders = $row['num'];	
+	$check_orders = $check_orders + 1;	
 }
 if($check_orders > 0) 
 {
@@ -198,12 +199,14 @@ $result = mysql_query("SELECT * FROM `ps_orders` WHERE session_id = '$session_id
      echo "</tr>";
   }?>
 						  </tbody>
-					  </table>            
 					
 					
 
 					<?php 		
 }
+?>
+</table>            
+<?php
 					$query = "SELECT  SUM(price) FROM ps_orders WHERE session_id = '$session_id'";
 	 
 $resulty = mysql_query($query) or die(mysql_error());
