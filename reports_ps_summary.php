@@ -178,16 +178,12 @@ $thetype = $row['type'];
    echo "<td>" . $row['End_hour'].":" .$row['End_minute']."</td>";
    ?><td><?php  echo $hr; ?>:<?php  echo $mr; ?>:<?php  echo $sr; ?></td><?php 
      echo "<td><font color='green'>" . $row['money'] ."</font> ".$lang_100. "</td>";
+	 echo "</tr>";
  
   }
 if(mysql_num_rows($result) == 0)
 {
-	if($takeaway_rows > 0){
-		echo "<tr><td colspan='6' align='center'>الفاتورة دي مسجلة كطلبات (Takeaway) وليست جلسة جهاز.</td></tr>";
-	}
-	else{
-		echo "<tr><td colspan='6' align='center'>لا توجد تفاصيل مسجلة لهذه الفاتورة</td></tr>";
-	}
+	echo "<tr><td colspan='6' align='center'>لا توجد تفاصيل مسجلة لهذه الفاتورة</td></tr>";
 }
   $resultb = mysql_query("SELECT SUM(money) FROM `reports` WHERE session_id = '$session_id'");
 while($rowb = mysql_fetch_array($resultb))
