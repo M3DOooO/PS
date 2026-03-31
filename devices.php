@@ -53,20 +53,21 @@ $exact_discount = $_GET['exact_discount'];
  
  
   
-$sql="SELECT MAX(session_id) FROM reports";
+mysql_query("SELECT GET_LOCK('reports_session_id_lock', 5)");
+$sql="SELECT MAX(session_id) AS max_session FROM reports";
 $result=mysql_query($sql);
 while($row = mysql_fetch_array($result))
 { 
-  $last_session =  $row['MAX(session_id)'];
-  // echo $last_session;
+  $last_session =  $row['max_session'];
 }
-if(!isset($last_session))
+if(!isset($last_session) || $last_session === '' || $last_session === null)
 {
 	$sess = 1;
  }
 else{
   $sess = $last_session + 1;
  }
+mysql_query("SELECT RELEASE_LOCK('reports_session_id_lock')");
  
      ob_start();  
 	system('ipconfig /all');  
