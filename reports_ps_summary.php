@@ -112,6 +112,22 @@ if(mysql_num_rows($result) == 0 && $session_id_int > 0)
 		$result = mysql_query("SELECT * FROM `reports` WHERE session_id = '$session_id'");
 	}
 }
+$takeaway_rows = 0;
+if(mysql_num_rows($result) == 0)
+{
+	$takeaway_result = mysql_query("SELECT * FROM `reports2` WHERE session_id = '$session_id'");
+	$takeaway_rows = mysql_num_rows($takeaway_result);
+	if($takeaway_rows > 0)
+	{
+		$takeaway_first = mysql_fetch_array($takeaway_result);
+		$cash_u = $takeaway_first['casheer'];
+		$d = $takeaway_first['day'];
+		$m = $takeaway_first['month'];
+		$y = $takeaway_first['year'];
+		$shift_check = $takeaway_first['shift'];
+		if($shift_check == 'One'){$shift_check2= $lang_155;}else{$shift_check2 = $lang_156;}
+	}
+}
 
 ?>
 <tr>
@@ -166,7 +182,12 @@ $thetype = $row['type'];
   }
 if(mysql_num_rows($result) == 0)
 {
-	echo "<tr><td colspan='6' align='center'>لا توجد تفاصيل مسجلة لهذه الفاتورة</td></tr>";
+	if($takeaway_rows > 0){
+		echo "<tr><td colspan='6' align='center'>الفاتورة دي مسجلة كطلبات (Takeaway) وليست جلسة جهاز.</td></tr>";
+	}
+	else{
+		echo "<tr><td colspan='6' align='center'>لا توجد تفاصيل مسجلة لهذه الفاتورة</td></tr>";
+	}
 }
   $resultb = mysql_query("SELECT SUM(money) FROM `reports` WHERE session_id = '$session_id'");
 while($rowb = mysql_fetch_array($resultb))
