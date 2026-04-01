@@ -18,8 +18,14 @@ while($row = mysql_fetch_array($result))
 }
 if($usern != 1 ){echo "<script>location='devices.php'</script>";}
 $id = isset($_GET['id']) ? $_GET['id'] : '';
-$sess = isset($_GET['session']) ? $_GET['session'] : '';
+$sess = isset($_GET['session']) ? $_GET['session'] : (isset($_GET['Session']) ? $_GET['Session'] : '');
 $session_id = isset($_GET['s']) ? $_GET['s'] : $sess;
+$session_id = trim($session_id);
+if($session_id === '')
+{
+	echo "<div class='alert alert-error'>Invalid session id.</div>";
+	die();
+}
 $check_orders = 0;
 $Items = 0;
 $timing = 0;
@@ -95,39 +101,13 @@ function newPopup2(url) {
 					<thead> <tr><td colspan = "6" align="center"><center><b><font color="blue"><?php echo $lang_78;?></font></b></center></td></tr>
 
 						<?php 
-								$session_id = isset($_GET['s']) ? $_GET['s'] : $session_id;
+								$session_id = isset($_GET['s']) ? trim($_GET['s']) : $session_id;
 include('includes/config.php');
 // To connect to the database
 mysql_connect("$host", "$user", "$pass")or die("cannot connect");
 mysql_select_db("$db")or die("cannot select DB");
-$session_id = mysql_real_escape_string($session_id);
-$result = mysql_query("SELECT * FROM `reports` WHERE session_id = '$session_id'");
-if(mysql_num_rows($result) == 0 && $session_id_int > 0)
-{
-	$result_id = mysql_query("SELECT session_id FROM `reports` WHERE id = '$session_id_int' LIMIT 1");
-	$row_id = mysql_fetch_array($result_id);
-	if(isset($row_id['session_id']) && $row_id['session_id'] != '')
-	{
-		$session_id = $row_id['session_id'];
-		$result = mysql_query("SELECT * FROM `reports` WHERE session_id = '$session_id'");
-	}
-}
-$takeaway_rows = 0;
-if(mysql_num_rows($result) == 0)
-{
-	$takeaway_result = mysql_query("SELECT * FROM `reports2` WHERE session_id = '$session_id'");
-	$takeaway_rows = mysql_num_rows($takeaway_result);
-	if($takeaway_rows > 0)
-	{
-		$takeaway_first = mysql_fetch_array($takeaway_result);
-		$cash_u = $takeaway_first['casheer'];
-		$d = $takeaway_first['day'];
-		$m = $takeaway_first['month'];
-		$y = $takeaway_first['year'];
-		$shift_check = $takeaway_first['shift'];
-		if($shift_check == 'One'){$shift_check2= $lang_155;}else{$shift_check2 = $lang_156;}
-	}
-}
+$session_id_sql = mysql_real_escape_string($session_id);
+$result = mysql_query("SELECT * FROM `reports` WHERE session_id = '$session_id_sql'");
 
 ?>
 <tr>
@@ -181,11 +161,7 @@ $thetype = $row['type'];
 	 echo "</tr>";
  
   }
-if(mysql_num_rows($result) == 0)
-{
-	echo "<tr><td colspan='6' align='center'>لا توجد تفاصيل مسجلة لهذه الفاتورة</td></tr>";
-}
-  $resultb = mysql_query("SELECT SUM(money) FROM `reports` WHERE session_id = '$session_id'");
+  $resultb = mysql_query("SELECT SUM(money) FROM `reports` WHERE session_id = '$session_id_sql'");
 while($rowb = mysql_fetch_array($resultb))
 {
 	   $timing = (float)$rowb['SUM(money)'];
@@ -218,7 +194,7 @@ if($alt_count > 0){
   // To connect to the database
 mysql_connect("$host", "$user", "$pass")or die("cannot connect");
 mysql_select_db("$db")or die("cannot select DB");
-$result = mysql_query("SELECT * FROM `ps_orders` WHERE session_id = '$session_id'");
+$result = mysql_query("SELECT * FROM `ps_orders` WHERE session_id = '$session_id_sql'");
 $check_orders = mysql_num_rows($result);
 if($check_orders > 0) 
 {
@@ -247,7 +223,7 @@ if($check_orders > 0)
 					</table>
 					<?php } ?>
 <?php
-					$query = "SELECT  SUM(price) FROM ps_orders WHERE session_id = '$session_id'";
+					$query = "SELECT  SUM(price) FROM ps_orders WHERE session_id = '$session_id_sql'";
 	 
 $resulty = mysql_query($query) or die(mysql_error());
 
