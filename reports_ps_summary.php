@@ -17,8 +17,27 @@ while($row = mysql_fetch_array($result))
 	$usern = $row['type'];
 }
 if($usern != 1 ){echo "<script>location='devices.php'</script>";}
-$id = $_GET['id'];  $id = $_GET['id']; 
- $sess = $_GET['session']; 
+$id = isset($_GET['id']) ? $_GET['id'] : '';
+$sess = isset($_GET['session']) ? $_GET['session'] : (isset($_GET['Session']) ? $_GET['Session'] : '');
+$session_id = isset($_GET['s']) ? $_GET['s'] : $sess;
+$session_id = trim($session_id);
+if($session_id === '')
+{
+	echo "<div class='alert alert-error'>Invalid session id.</div>";
+	die();
+}
+$check_orders = 0;
+$Items = 0;
+$timing = 0;
+$discount = 0;
+$service = 0;
+$tax = 0;
+$discount_reason = '';
+$cash_u = '';
+$shift_check2 = '';
+$y = '';
+$m = '';
+$d = '';
 
  ?>
 <!DOCTYPE html>
@@ -73,7 +92,7 @@ function newPopup2(url) {
 			
 			<div id="content" class="span10">
 			<!-- content starts -->
-<h2><span class="btn-primary">&nbsp;&nbsp;<?php echo $lang_303;?>: <?php  $session_id = $_GET['s']; echo $session_id;?>&nbsp;&nbsp;</span></h2><br/>
+<h2><span class="btn-primary">&nbsp;&nbsp;<?php echo $lang_303;?>: <?php  echo $session_id;?>&nbsp;&nbsp;</span></h2><br/>
 <div class="row-fluid sortable">		
 				<div class="box span10">
 				 
@@ -82,12 +101,8 @@ function newPopup2(url) {
 					<thead> <tr><td colspan = "6" align="center"><center><b><font color="blue"><?php echo $lang_78;?></font></b></center></td></tr>
 
 						<?php 
-								$session_id = $_GET['s'];
-include('includes/config.php');
-// To connect to the database
-mysql_connect("$host", "$user", "$pass")or die("cannot connect");
-mysql_select_db("$db")or die("cannot select DB");
-$result = mysql_query("SELECT * FROM `reports` WHERE session_id = '$session_id'");
+$session_id_sql = mysql_real_escape_string($session_id);
+$result = mysql_query("SELECT * FROM `reports` WHERE session_id = '$session_id_sql'");
 
 ?>
 <tr>
@@ -112,7 +127,7 @@ $hr = floor($tom / 3600)%24;
 $mr = floor($tom / 60)%60;
 $sr = ($tom % 60);
 $shift_check = $row['shift'];
-$discount = $row['discount2']+$row['discount_amount'];
+$discount += $row['discount2']+$row['discount_amount'];
 $discount_reason = $row['dis_reason'];
 $cash_u = $row['casheer'];
 $d = $row['day'];
@@ -138,79 +153,58 @@ $thetype = $row['type'];
    echo "<td>" . $row['End_hour'].":" .$row['End_minute']."</td>";
    ?><td><?php  echo $hr; ?>:<?php  echo $mr; ?>:<?php  echo $sr; ?></td><?php 
      echo "<td><font color='green'>" . $row['money'] ."</font> ".$lang_100. "</td>";
+	 echo "</tr>";
  
   }
-  $resultb = mysql_query("SELECT SUM(money) FROM `reports` WHERE session_id = '$session_id'");
+  $resultb = mysql_query("SELECT SUM(money) FROM `reports` WHERE session_id = '$session_id_sql'");
 while($rowb = mysql_fetch_array($resultb))
 {
-	   $timing = $rowb['SUM(money)'];
-
-	   $total = $row['SUM(money)'] - $discount;
+	   $timing = (float)$rowb['SUM(money)'];
+	   $total = $timing - $discount;
 
 }
   ?>
 						  
-					 
+						 
 					 </tbody>
-								  <?php 
-  // To connect to the database
-mysql_connect("$host", "$user", "$pass")or die("cannot connect");
-mysql_select_db("$db")or die("cannot select DB");
-$result = mysql_query("SELECT * FROM `ps_orders` WHERE session_id = '$session_id'");
-	 while($row = mysql_fetch_array($result))
-{
-$check_orders = $row['num'];	
-}
+						</table>
+						<?php
+$result = mysql_query("SELECT * FROM `ps_orders` WHERE session_id = '$session_id_sql'");
+$check_orders = mysql_num_rows($result);
 if($check_orders > 0) 
 {
 ?>
-					 <tr><td colspan = "6" align="center"><center><b><font color="blue"><?php echo $lang_154;?></font></b></center></td></tr>
-
- 
-						  <?php 
-  // To connect to the database
-mysql_connect("$host", "$user", "$pass")or die("cannot connect");
-mysql_select_db("$db")or die("cannot select DB");
-$result = mysql_query("SELECT * FROM `ps_orders` WHERE session_id = '$session_id'");
-
-?><thead>
-<tr>
+					<table class="table table-striped table-bordered span6">
+					<thead>
+					<tr><td colspan = "6" align="center"><center><b><font color="blue"><?php echo $lang_154;?></font></b></center></td></tr>
+					<tr>
 								  <th colspan = '2'><?php echo $lang_49;?></th>
                                   <th><?php echo $lang_306;?></th>
 								  <th><?php echo $lang_307;?></th>
 								  <th colspan = '2'><?php echo $lang_23;?></th>
-								 
- 
-
-</tr>
-</thead> 
-						  <tbody>
-						  <?php 
-								
-								
-	 while($row = mysql_fetch_array($result))
+					</tr>
+					</thead> 
+					<tbody>
+					<?php while($row = mysql_fetch_array($result))
 {
-  echo "<tr colspan = '2'>";
+  echo "<tr>";
   echo "<td align='center' colspan = '2'>" . $row['name'] . "</td>";
-   echo "<td align='center'>" . $row['sub_cat'] . "</td>";
-   echo "<td align='center' >" . $row['num']." ".$lang_308."</td>";
-      echo "<td align='center'  colspan = '2' ><font color='green'>" . $row['price'] ."</font> ".$lang_100. "</td>";
-     echo "</tr>";
-  }?>
-						  </tbody>
-					  </table>            
-					
-					
-
-					<?php 		
-}
-					$query = "SELECT  SUM(price) FROM ps_orders WHERE session_id = '$session_id'";
+  echo "<td align='center'>" . $row['sub_cat'] . "</td>";
+  echo "<td align='center' >" . $row['num']." ".$lang_308."</td>";
+  echo "<td align='center'  colspan = '2' ><font color='green'>" . $row['price'] ."</font> ".$lang_100. "</td>";
+  echo "</tr>";
+}?>
+					</tbody>
+					</table>
+					<?php } ?>
+<?php
+					$query = "SELECT  SUM(price) FROM ps_orders WHERE session_id = '$session_id_sql'";
 	 
 $resulty = mysql_query($query) or die(mysql_error());
 
 // Print out result
 while($row = mysql_fetch_array($resulty)){
-      $Items = $row['SUM(price)'];
+      $Items = (float)$row['SUM(price)'];
   }?> 
 					<table border="1" span="6" width="40%" style="margin-right:10px">
 					
