@@ -89,6 +89,32 @@ include('includes/config.php');
 mysql_connect("$host", "$user", "$pass")or die("cannot connect");
 mysql_select_db("$db")or die("cannot select DB");
 $result = mysql_query("SELECT * FROM `reports` WHERE session_id = '$session_id'");
+if(mysql_num_rows($result) == 0 && $session_id_int > 0)
+{
+	$result_id = mysql_query("SELECT session_id FROM `reports` WHERE id = '$session_id_int' LIMIT 1");
+	$row_id = mysql_fetch_array($result_id);
+	if(isset($row_id['session_id']) && $row_id['session_id'] != '')
+	{
+		$session_id = $row_id['session_id'];
+		$result = mysql_query("SELECT * FROM `reports` WHERE session_id = '$session_id'");
+	}
+}
+$takeaway_rows = 0;
+if(mysql_num_rows($result) == 0)
+{
+	$takeaway_result = mysql_query("SELECT * FROM `reports2` WHERE session_id = '$session_id'");
+	$takeaway_rows = mysql_num_rows($takeaway_result);
+	if($takeaway_rows > 0)
+	{
+		$takeaway_first = mysql_fetch_array($takeaway_result);
+		$cash_u = $takeaway_first['casheer'];
+		$d = $takeaway_first['day'];
+		$m = $takeaway_first['month'];
+		$y = $takeaway_first['year'];
+		$shift_check = $takeaway_first['shift'];
+		if($shift_check == 'One'){$shift_check2= $lang_155;}else{$shift_check2 = $lang_156;}
+	}
+}
 
 ?>
 <tr>
@@ -139,17 +165,38 @@ $thetype = $row['type'];
    echo "<td>" . $row['End_hour'].":" .$row['End_minute']."</td>";
    ?><td><?php  echo $hr; ?>:<?php  echo $mr; ?>:<?php  echo $sr; ?></td><?php 
      echo "<td><font color='green'>" . $row['money'] ."</font> ".$lang_100. "</td>";
+	 echo "</tr>";
  
   }
+if(mysql_num_rows($result) == 0)
+{
+	echo "<tr><td colspan='6' align='center'>لا توجد تفاصيل مسجلة لهذه الفاتورة</td></tr>";
+}
   $resultb = mysql_query("SELECT SUM(money) FROM `reports` WHERE session_id = '$session_id'");
 while($rowb = mysql_fetch_array($resultb))
 {
 	   $timing = $rowb['SUM(money)'];
-
-	   $total = $row['SUM(money)'] - $discount;
+	   $total = $timing - $discount;
 
 }
   ?>
+<?php if($has_reports == 0){ ?>
+<tr><td colspan="6" align="center"><b style="color:#ff6b6b">لا توجد تفاصيل لعب مسجلة لهذه الفاتورة.</b></td></tr>
+<?php
+$alt_count = 0;
+$sql_alt = "SELECT COUNT(*) AS c FROM `reports2` WHERE `session_id` = '$session_id_safe'";
+$alt_result = mysql_query($sql_alt);
+if($alt_result === false){ ps_summary_log_error('PS-SUM-REP-ALT-001', $sql_alt); }
+else{
+	$alt_row = mysql_fetch_array($alt_result);
+	$alt_count = (int)$alt_row['c'];
+}
+if($alt_count > 0){
+?>
+<tr><td colspan="6" align="center"><a class="btn btn-warning" href="reports_takeaway_summary.php?s=<?php echo $session_id_safe; ?>">الفاتورة دي متسجلة كتقرير طلبات (Takeaway) - افتح التفاصيل من هنا</a></td></tr>
+<?php } ?>
+<?php if($debug_mode){ ?><tr><td colspan="6" align="center"><code>PS-SUM-NODATA-REPORTS | session=<?php echo $session_id_safe; ?></code></td></tr><?php } ?>
+<?php } ?>
 						  
 					 
 					 </tbody>
@@ -158,9 +205,9 @@ while($rowb = mysql_fetch_array($resultb))
 mysql_connect("$host", "$user", "$pass")or die("cannot connect");
 mysql_select_db("$db")or die("cannot select DB");
 $result = mysql_query("SELECT * FROM `ps_orders` WHERE session_id = '$session_id'");
-	 while($row = mysql_fetch_array($result))
+while($row = mysql_fetch_array($result))
 {
-$check_orders = $row['num'];	
+	$check_orders = $check_orders + 1;	
 }
 if($check_orders > 0) 
 {
@@ -172,7 +219,15 @@ if($check_orders > 0)
   // To connect to the database
 mysql_connect("$host", "$user", "$pass")or die("cannot connect");
 mysql_select_db("$db")or die("cannot select DB");
-$result = mysql_query("SELECT * FROM `ps_orders` WHERE session_id = '$session_id'");
+$sql_orders_table = "SELECT * FROM `ps_orders` WHERE `session_id` = '$session_id_safe'";
+$result = mysql_query($sql_orders_table);
+if($result === false){ ps_summary_log_error('PS-SUM-ORD-003', $sql_orders_table); }
+if(mysql_num_rows($result) == 0 && $session_id_int > 0)
+{
+	$sql_orders_table_fallback = "SELECT * FROM `ps_orders` WHERE CAST(session_id AS UNSIGNED) = '$session_id_int'";
+	$result = mysql_query($sql_orders_table_fallback);
+	if($result === false){ ps_summary_log_error('PS-SUM-ORD-004', $sql_orders_table_fallback); }
+}
 
 ?><thead>
 <tr>
@@ -199,12 +254,14 @@ $result = mysql_query("SELECT * FROM `ps_orders` WHERE session_id = '$session_id
      echo "</tr>";
   }?>
 						  </tbody>
-					  </table>            
 					
 					
 
 					<?php 		
 }
+?>
+</table>            
+<?php
 					$query = "SELECT  SUM(price) FROM ps_orders WHERE session_id = '$session_id'";
 	 
 $resulty = mysql_query($query) or die(mysql_error());
