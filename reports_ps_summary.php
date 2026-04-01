@@ -101,11 +101,6 @@ function newPopup2(url) {
 					<thead> <tr><td colspan = "6" align="center"><center><b><font color="blue"><?php echo $lang_78;?></font></b></center></td></tr>
 
 						<?php 
-								$session_id = isset($_GET['s']) ? trim($_GET['s']) : $session_id;
-include('includes/config.php');
-// To connect to the database
-mysql_connect("$host", "$user", "$pass")or die("cannot connect");
-mysql_select_db("$db")or die("cannot select DB");
 $session_id_sql = mysql_real_escape_string($session_id);
 $result = mysql_query("SELECT * FROM `reports` WHERE session_id = '$session_id_sql'");
 
@@ -189,11 +184,8 @@ if($alt_count > 0){
 						  
 						 
 					 </tbody>
-					</table>
-					<?php
-  // To connect to the database
-mysql_connect("$host", "$user", "$pass")or die("cannot connect");
-mysql_select_db("$db")or die("cannot select DB");
+						</table>
+						<?php
 $result = mysql_query("SELECT * FROM `ps_orders` WHERE session_id = '$session_id_sql'");
 $check_orders = mysql_num_rows($result);
 if($check_orders > 0) 
