@@ -1,4 +1,7 @@
-﻿<?php session_start();
+<?php
+if (session_status() === PHP_SESSION_NONE) {
+	session_start();
+}
  if( !isset($_SESSION['ps_user']) )
  {
 	include('login.php');
@@ -143,6 +146,7 @@ $thetype = $row['type'];
 		{
 		CASE 'single':   echo $lang_3;	BREAK;		
 		CASE 'multi':   echo $lang_4;	BREAK;		
+		CASE 'multi5':   echo $lang_5;	BREAK;		
 		CASE 'multi6':   echo $lang_6;	BREAK;		
 		CASE 'multi7':   echo $lang_7;	BREAK;		
 		} 
