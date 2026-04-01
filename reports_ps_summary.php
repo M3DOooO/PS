@@ -21,11 +21,7 @@ $id = isset($_GET['id']) ? $_GET['id'] : '';
 $sess = isset($_GET['session']) ? $_GET['session'] : (isset($_GET['Session']) ? $_GET['Session'] : '');
 $session_id = isset($_GET['s']) ? $_GET['s'] : $sess;
 $session_id = trim($session_id);
-if($session_id === '')
-{
-	echo "<div class='alert alert-error'>Invalid session id.</div>";
-	die();
-}
+$has_valid_session = ($session_id !== '');
 $check_orders = 0;
 $Items = 0;
 $timing = 0;
@@ -101,9 +97,10 @@ function newPopup2(url) {
 					<thead> <tr><td colspan = "6" align="center"><center><b><font color="blue"><?php echo $lang_78;?></font></b></center></td></tr>
 
 						<?php 
+if($has_valid_session)
+{
 $session_id_sql = mysql_real_escape_string($session_id);
 $result = mysql_query("SELECT * FROM `reports` WHERE session_id = '$session_id_sql'");
-
 ?>
 <tr>
                                    <th><?php echo $lang_304;?></th>
@@ -155,36 +152,22 @@ $thetype = $row['type'];
      echo "<td><font color='green'>" . $row['money'] ."</font> ".$lang_100. "</td>";
 	 echo "</tr>";
  
-  }
+	  }
   $resultb = mysql_query("SELECT SUM(money) FROM `reports` WHERE session_id = '$session_id_sql'");
 while($rowb = mysql_fetch_array($resultb))
 {
 	   $timing = (float)$rowb['SUM(money)'];
 	   $total = $timing - $discount;
 
-}
-  ?>
-<?php if($has_reports == 0){ ?>
-<tr><td colspan="6" align="center"><b style="color:#ff6b6b">لا توجد تفاصيل لعب مسجلة لهذه الفاتورة.</b></td></tr>
-<?php
-$alt_count = 0;
-$sql_alt = "SELECT COUNT(*) AS c FROM `reports2` WHERE `session_id` = '$session_id_safe'";
-$alt_result = mysql_query($sql_alt);
-if($alt_result === false){ ps_summary_log_error('PS-SUM-REP-ALT-001', $sql_alt); }
-else{
-	$alt_row = mysql_fetch_array($alt_result);
-	$alt_count = (int)$alt_row['c'];
-}
-if($alt_count > 0){
-?>
-<tr><td colspan="6" align="center"><a class="btn btn-warning" href="reports_takeaway_summary.php?s=<?php echo $session_id_safe; ?>">الفاتورة دي متسجلة كتقرير طلبات (Takeaway) - افتح التفاصيل من هنا</a></td></tr>
-<?php } ?>
-<?php if($debug_mode){ ?><tr><td colspan="6" align="center"><code>PS-SUM-NODATA-REPORTS | session=<?php echo $session_id_safe; ?></code></td></tr><?php } ?>
-<?php } ?>
-						  
+	}
+	  ?>
+						  <?php } else { ?>
+						  <tr><td colspan="6" align="center"><div class="alert alert-error"><?php echo $lang_303;?> غير صالح.</div></td></tr>
+						  <?php } ?>
 						 
 					 </tbody>
 						</table>
+						<?php if($has_valid_session) { ?>
 						<?php
 $result = mysql_query("SELECT * FROM `ps_orders` WHERE session_id = '$session_id_sql'");
 $check_orders = mysql_num_rows($result);
@@ -245,6 +228,7 @@ while($row = mysql_fetch_array($resulty)){
 					<tr><td align='center'><h2><?php echo $lang_309;?></h2></td> <td align='center'><h1><font color="green"><?php  echo $Items + $timing - $discount + $service + $tax;?></font></h1></td><td align='center'><h2> <?php echo $lang_100;?></h2></td></tr>
 
 					</table>
+					<?php } ?>
 					 </div>
 <script type="text/javascript">
 // Popup window code
@@ -255,7 +239,9 @@ function newPopup(url) {
 </script>
 		<br/>	
 		<br/>	
+			<?php if($has_valid_session && !empty($ps_id)){ ?>
 			<a class="btn btn-primary pull-right" href = "JavaScript:newPopup('actions/print/ps.php?Session=<?php  echo $session_id; ?>&&id=<?php  echo $ps_id; ?>')"><span class="icon32 icon-print"></span><?php echo $lang_310;?></a>
+			<?php } ?>
 
 				</div><!--/span-->
 			
