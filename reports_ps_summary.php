@@ -17,9 +17,9 @@ while($row = mysql_fetch_array($result))
 	$usern = $row['type'];
 }
 if($usern != 1 ){echo "<script>location='devices.php'</script>";}
-$id = $_GET['id'];  $id = $_GET['id']; 
-$sess = $_GET['session']; 
-$check_orders = 0;
+$id = isset($_GET['id']) ? $_GET['id'] : '';
+$sess = isset($_GET['session']) ? $_GET['session'] : '';
+$session_id = isset($_GET['s']) ? $_GET['s'] : $sess;
 
  ?>
 <!DOCTYPE html>
