@@ -210,69 +210,41 @@ if($alt_count > 0){
 <?php if($debug_mode){ ?><tr><td colspan="6" align="center"><code>PS-SUM-NODATA-REPORTS | session=<?php echo $session_id_safe; ?></code></td></tr><?php } ?>
 <?php } ?>
 						  
-					 
+						 
 					 </tbody>
-								  <?php 
+					</table>
+					<?php
   // To connect to the database
 mysql_connect("$host", "$user", "$pass")or die("cannot connect");
 mysql_select_db("$db")or die("cannot select DB");
 $result = mysql_query("SELECT * FROM `ps_orders` WHERE session_id = '$session_id'");
-while($row = mysql_fetch_array($result))
-{
-	$check_orders = $check_orders + 1;	
-}
+$check_orders = mysql_num_rows($result);
 if($check_orders > 0) 
 {
 ?>
-					 <tr><td colspan = "6" align="center"><center><b><font color="blue"><?php echo $lang_154;?></font></b></center></td></tr>
-
- 
-						  <?php 
-  // To connect to the database
-mysql_connect("$host", "$user", "$pass")or die("cannot connect");
-mysql_select_db("$db")or die("cannot select DB");
-$sql_orders_table = "SELECT * FROM `ps_orders` WHERE `session_id` = '$session_id_safe'";
-$result = mysql_query($sql_orders_table);
-if($result === false){ ps_summary_log_error('PS-SUM-ORD-003', $sql_orders_table); }
-if(mysql_num_rows($result) == 0 && $session_id_int > 0)
-{
-	$sql_orders_table_fallback = "SELECT * FROM `ps_orders` WHERE CAST(session_id AS UNSIGNED) = '$session_id_int'";
-	$result = mysql_query($sql_orders_table_fallback);
-	if($result === false){ ps_summary_log_error('PS-SUM-ORD-004', $sql_orders_table_fallback); }
-}
-
-?><thead>
-<tr>
+					<table class="table table-striped table-bordered span6">
+					<thead>
+					<tr><td colspan = "6" align="center"><center><b><font color="blue"><?php echo $lang_154;?></font></b></center></td></tr>
+					<tr>
 								  <th colspan = '2'><?php echo $lang_49;?></th>
                                   <th><?php echo $lang_306;?></th>
 								  <th><?php echo $lang_307;?></th>
 								  <th colspan = '2'><?php echo $lang_23;?></th>
-								 
- 
-
-</tr>
-</thead> 
-						  <tbody>
-						  <?php 
-								
-								
-	 while($row = mysql_fetch_array($result))
+					</tr>
+					</thead> 
+					<tbody>
+					<?php while($row = mysql_fetch_array($result))
 {
   echo "<tr colspan = '2'>";
   echo "<td align='center' colspan = '2'>" . $row['name'] . "</td>";
-   echo "<td align='center'>" . $row['sub_cat'] . "</td>";
-   echo "<td align='center' >" . $row['num']." ".$lang_308."</td>";
-      echo "<td align='center'  colspan = '2' ><font color='green'>" . $row['price'] ."</font> ".$lang_100. "</td>";
-     echo "</tr>";
-  }?>
-						  </tbody>
-					
-					
-
-					<?php 		
-}
-?>
-</table>            
+  echo "<td align='center'>" . $row['sub_cat'] . "</td>";
+  echo "<td align='center' >" . $row['num']." ".$lang_308."</td>";
+  echo "<td align='center'  colspan = '2' ><font color='green'>" . $row['price'] ."</font> ".$lang_100. "</td>";
+  echo "</tr>";
+}?>
+					</tbody>
+					</table>
+					<?php } ?>
 <?php
 					$query = "SELECT  SUM(price) FROM ps_orders WHERE session_id = '$session_id'";
 	 
