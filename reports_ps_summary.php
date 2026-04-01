@@ -20,6 +20,18 @@ if($usern != 1 ){echo "<script>location='devices.php'</script>";}
 $id = isset($_GET['id']) ? $_GET['id'] : '';
 $sess = isset($_GET['session']) ? $_GET['session'] : '';
 $session_id = isset($_GET['s']) ? $_GET['s'] : $sess;
+$check_orders = 0;
+$Items = 0;
+$timing = 0;
+$discount = 0;
+$service = 0;
+$tax = 0;
+$discount_reason = '';
+$cash_u = '';
+$shift_check2 = '';
+$y = '';
+$m = '';
+$d = '';
 
  ?>
 <!DOCTYPE html>
