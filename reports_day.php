@@ -16,16 +16,16 @@ while($row = mysql_fetch_array($result))
 	$usern = $row['type'];
 }
 if($usern != 1 ){echo "<script>location='devices.php'</script>";}$id = $_GET['id']; 
-$today =  $shift_day;
-$this_month =  $shift_month;
-$Month = $shift_month;
-$Day = $shift_day;	
+$today = idate('d');
+$this_month = idate('m');
+$Month = $this_month;
+$Day = $today;	
 $Year = idate('Y');
 
-$Rday = $_GET['se_day'];
-$Rmonth = $_GET['se_month'];
-$Ryear = $_GET['se_year'];
-if(isset($Rday)||isset($Rmonth)||isset($Ryear))
+$Rday = isset($_GET['se_day']) ? $_GET['se_day'] : '';
+$Rmonth = isset($_GET['se_month']) ? $_GET['se_month'] : '';
+$Ryear = isset($_GET['se_year']) ? $_GET['se_year'] : '';
+if($Rday !== '' && $Rmonth !== '' && $Ryear !== '')
 		{
   $today =  $Rday;
   $this_month =  $Rmonth;
@@ -112,7 +112,7 @@ function newPopup2(url) {
 				</div>
 			</noscript>
 			<?php 
-			if(isset($Rday)||isset($Rmonth)||isset($Ryear))
+			if($Rday !== '' && $Rmonth !== '' && $Ryear !== '')
 		{
   $today =  $Rday;
   $this_month =  $Rmonth;
