@@ -42,12 +42,13 @@ function getSession($tadd_item)
         mysql_connect("$host", "$user", "$pass") or die(mysql_error());
         mysql_select_db("$db") or die(mysql_error());
 
-        $sql = "SELECT MAX(session_id) FROM reports2";
+        mysql_query("SELECT GET_LOCK('reports2_session_id_lock', 5)");
+        $sql = "SELECT MAX(session_id) AS max_session FROM reports2";
         $result = mysql_query($sql);
 
         $last_session = null;
         while ($row = mysql_fetch_array($result)) {
-            $last_session = $row['MAX(session_id)'];
+            $last_session = $row['max_session'];
         }
 
         if (!isset($last_session) || $last_session === '' || $last_session === null) {
@@ -55,6 +56,7 @@ function getSession($tadd_item)
         } else {
             $session_id = $last_session + 1;
         }
+        mysql_query("SELECT RELEASE_LOCK('reports2_session_id_lock')");
     }
 
     return $session_id;

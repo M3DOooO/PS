@@ -125,7 +125,7 @@ $hr = floor($tom / 3600)%24;
 $mr = floor($tom / 60)%60;
 $sr = ($tom % 60);
 $shift_check = $row['shift'];
-$discount = $row['discount2']+$row['discount_amount'];
+$discount += $row['discount2']+$row['discount_amount'];
 $discount_reason = $row['dis_reason'];
 $cash_u = $row['casheer'];
 $d = $row['day'];
@@ -153,8 +153,8 @@ $thetype = $row['type'];
      echo "<td><font color='green'>" . $row['money'] ."</font> ".$lang_100. "</td>";
 	 echo "</tr>";
  
-  }
-  $resultb = mysql_query("SELECT SUM(money) FROM `reports` WHERE session_id = '$session_id'");
+	  }
+  $resultb = mysql_query("SELECT SUM(money) FROM `reports` WHERE session_id = '$session_id_sql'");
 while($rowb = mysql_fetch_array($resultb))
 {
 	   $timing = $rowb['SUM(money)'];
@@ -188,7 +188,7 @@ if($check_orders > 0)
 					<tbody>
 					<?php while($row = mysql_fetch_array($result))
 {
-  echo "<tr colspan = '2'>";
+  echo "<tr>";
   echo "<td align='center' colspan = '2'>" . $row['name'] . "</td>";
   echo "<td align='center'>" . $row['sub_cat'] . "</td>";
   echo "<td align='center' >" . $row['num']." ".$lang_308."</td>";
@@ -205,7 +205,7 @@ $resulty = mysql_query($query) or die(mysql_error());
 
 // Print out result
 while($row = mysql_fetch_array($resulty)){
-      $Items = $row['SUM(price)'];
+      $Items = (float)$row['SUM(price)'];
   }?> 
 					<table border="1" span="6" width="40%" style="margin-right:10px">
 					
@@ -229,6 +229,7 @@ while($row = mysql_fetch_array($resulty)){
 					<tr><td align='center'><h2><?php echo $lang_309;?></h2></td> <td align='center'><h1><font color="green"><?php  echo $Items + $timing - $discount + $service + $tax;?></font></h1></td><td align='center'><h2> <?php echo $lang_100;?></h2></td></tr>
 
 					</table>
+					<?php } ?>
 					 </div>
 <script type="text/javascript">
 // Popup window code
@@ -239,7 +240,9 @@ function newPopup(url) {
 </script>
 		<br/>	
 		<br/>	
+			<?php if($has_valid_session && !empty($ps_id)){ ?>
 			<a class="btn btn-primary pull-right" href = "JavaScript:newPopup('actions/print/ps.php?Session=<?php  echo $session_id; ?>&&id=<?php  echo $ps_id; ?>')"><span class="icon32 icon-print"></span><?php echo $lang_310;?></a>
+			<?php } ?>
 
 				</div><!--/span-->
 			
