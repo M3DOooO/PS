@@ -100,6 +100,7 @@ include('includes/config.php');
 // To connect to the database
 mysql_connect("$host", "$user", "$pass")or die("cannot connect");
 mysql_select_db("$db")or die("cannot select DB");
+$session_id = mysql_real_escape_string($session_id);
 $result = mysql_query("SELECT * FROM `reports` WHERE session_id = '$session_id'");
 if(mysql_num_rows($result) == 0 && $session_id_int > 0)
 {
@@ -151,7 +152,7 @@ $hr = floor($tom / 3600)%24;
 $mr = floor($tom / 60)%60;
 $sr = ($tom % 60);
 $shift_check = $row['shift'];
-$discount = $row['discount2']+$row['discount_amount'];
+$discount += $row['discount2']+$row['discount_amount'];
 $discount_reason = $row['dis_reason'];
 $cash_u = $row['casheer'];
 $d = $row['day'];
@@ -187,7 +188,7 @@ if(mysql_num_rows($result) == 0)
   $resultb = mysql_query("SELECT SUM(money) FROM `reports` WHERE session_id = '$session_id'");
 while($rowb = mysql_fetch_array($resultb))
 {
-	   $timing = $rowb['SUM(money)'];
+	   $timing = (float)$rowb['SUM(money)'];
 	   $total = $timing - $discount;
 
 }
@@ -235,7 +236,7 @@ if($check_orders > 0)
 					<tbody>
 					<?php while($row = mysql_fetch_array($result))
 {
-  echo "<tr colspan = '2'>";
+  echo "<tr>";
   echo "<td align='center' colspan = '2'>" . $row['name'] . "</td>";
   echo "<td align='center'>" . $row['sub_cat'] . "</td>";
   echo "<td align='center' >" . $row['num']." ".$lang_308."</td>";
@@ -252,7 +253,7 @@ $resulty = mysql_query($query) or die(mysql_error());
 
 // Print out result
 while($row = mysql_fetch_array($resulty)){
-      $Items = $row['SUM(price)'];
+      $Items = (float)$row['SUM(price)'];
   }?> 
 					<table border="1" span="6" width="40%" style="margin-right:10px">
 					
