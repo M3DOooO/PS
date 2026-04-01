@@ -18,10 +18,8 @@ while($row = mysql_fetch_array($result))
 }
 if($usern != 1 ){echo "<script>location='devices.php'</script>";}
 $id = isset($_GET['id']) ? $_GET['id'] : '';
-$sess = isset($_GET['session']) ? $_GET['session'] : (isset($_GET['Session']) ? $_GET['Session'] : '');
+$sess = isset($_GET['session']) ? $_GET['session'] : '';
 $session_id = isset($_GET['s']) ? $_GET['s'] : $sess;
-$session_id = trim($session_id);
-$has_valid_session = ($session_id !== '');
 $check_orders = 0;
 $Items = 0;
 $timing = 0;
@@ -97,10 +95,13 @@ function newPopup2(url) {
 					<thead> <tr><td colspan = "6" align="center"><center><b><font color="blue"><?php echo $lang_78;?></font></b></center></td></tr>
 
 						<?php 
-if($has_valid_session)
-{
-$session_id_sql = mysql_real_escape_string($session_id);
-$result = mysql_query("SELECT * FROM `reports` WHERE session_id = '$session_id_sql'");
+								$session_id = isset($_GET['s']) ? $_GET['s'] : $session_id;
+include('includes/config.php');
+// To connect to the database
+mysql_connect("$host", "$user", "$pass")or die("cannot connect");
+mysql_select_db("$db")or die("cannot select DB");
+$result = mysql_query("SELECT * FROM `reports` WHERE session_id = '$session_id'");
+
 ?>
 <tr>
                                    <th><?php echo $lang_304;?></th>
@@ -156,20 +157,20 @@ $thetype = $row['type'];
   $resultb = mysql_query("SELECT SUM(money) FROM `reports` WHERE session_id = '$session_id_sql'");
 while($rowb = mysql_fetch_array($resultb))
 {
-	   $timing = (float)$rowb['SUM(money)'];
+	   $timing = $rowb['SUM(money)'];
 	   $total = $timing - $discount;
 
-	}
-	  ?>
-						  <?php } else { ?>
-						  <tr><td colspan="6" align="center"><div class="alert alert-error"><?php echo $lang_303;?> غير صالح.</div></td></tr>
-						  <?php } ?>
+}
+  ?>
+						  
 						 
 					 </tbody>
-						</table>
-						<?php if($has_valid_session) { ?>
-						<?php
-$result = mysql_query("SELECT * FROM `ps_orders` WHERE session_id = '$session_id_sql'");
+					</table>
+					<?php
+  // To connect to the database
+mysql_connect("$host", "$user", "$pass")or die("cannot connect");
+mysql_select_db("$db")or die("cannot select DB");
+$result = mysql_query("SELECT * FROM `ps_orders` WHERE session_id = '$session_id'");
 $check_orders = mysql_num_rows($result);
 if($check_orders > 0) 
 {
@@ -198,7 +199,7 @@ if($check_orders > 0)
 					</table>
 					<?php } ?>
 <?php
-					$query = "SELECT  SUM(price) FROM ps_orders WHERE session_id = '$session_id_sql'";
+					$query = "SELECT  SUM(price) FROM ps_orders WHERE session_id = '$session_id'";
 	 
 $resulty = mysql_query($query) or die(mysql_error());
 
